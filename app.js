@@ -9,7 +9,7 @@ const { MongoClient, ServerApiVersion } = require('mongodb');
 mongoose.connect("mongodb+srv://koushik:koushik@cluster0.h2lzgvs.mongodb.net/users"); 
 
 app.get("/register", function (req, res) { 
-    res.render("register")
+    res.sendFile(__dirname+"/views/register.html")
  })
 
  app.get("/", function (req, res) { 
