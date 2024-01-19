@@ -1,0 +1,18 @@
+.box{
+    border: solid;
+}
+
+.in{
+    display: inline;
+    height: 50px;
+    width: 200px;
+    border: solid;
+    border-radius: 20px;
+}
+
+.l{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
