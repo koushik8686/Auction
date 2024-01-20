@@ -17,11 +17,11 @@ const userschema = mongoose.Schema({
     password:String
 })
 const itemschema= mongoose.Schema({
+    name:String,
     person:userschema,
     url:String,
     base_price:Number,
     date:Date,
-    time:String
 })
 const usermodel = mongoose.model("userdetails",userschema)
 const itemmodel = mongoose.model("items", itemschema)
@@ -45,20 +45,18 @@ app.post("/login" , function (req, res) {
     var email = req.body.email
     var pass = req.body.pass
     usermodel.find().then((arr)=>{
-        console.log(arr)
         var item
         for (let index = 0; index < arr.length; index++) {
           if (arr[index].password==pass) {
             item=arr[index]
           }
         }
-        console.log(item)
         if (!item) {
-            res.redirect("/signup")
+            res.redirect("/register")
         }
         
         if (item.password==pass) {
-            console.log(item._id)
+    var t= item._id
             res.redirect("/user/"+item._id)
         } else {
           res.send("wrong pass")
@@ -67,11 +65,20 @@ app.post("/login" , function (req, res) {
  })
  
 app.get("/user/:email" , function (req, res) { 
-  var arr=[]
-  res.render("home", arr)
+  itemmodel.find().then((arr)=>{
+    var data = {
+        id:req.params.email,
+        items:arr
+    }
+    res.render("home", {arr:data})
+  })
  })
 
+app.get("/user/create/:email", function (req, res) { 
+    console.log("req")
+  res.render("create" , {k:req.params.email})
 
+ })
 
  app.get("/", function (req, res) { 
     res.sendFile(__dirname+"/views/intro.html")
