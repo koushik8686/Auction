@@ -5,9 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+<link rel="stylesheet" type="text/css" href="/b.css">
 <body>
     <h1> items </h1>
     <a href="/user/create/<%= arr.id %>">create auction</a>
     <a href="/items">my items</a>
+
+    <div class="items">
+        <% for (let index = 0; index < arr.items.length; index++) { %>
+           <div class="item">
+            <img src=<%= arr.items[index].url %> alt="">
+            <p> <%= arr.items[index].name %> </p>
+            <p> <%= arr.items[index].person %> </p>
+            <p> <%= arr.items[index].base_price %> </p>
+            <p> <%= arr.items[index].date %> </p>
+           </div>
+       <% } %>
+    </div>
 </body>
 </html>

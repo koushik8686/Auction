@@ -1,28 +1,34 @@
 const mongoose = require("mongoose")
 const express = require("express");
 const bodyParser = require("body-parser");
-const app = express();app.set('view engine', 'ejs');
+const app = express();
+app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 var items =[]
 const { MongoClient, ServerApiVersion } = require('mongodb');
-mongoose.connect('mongodb+srv://pinnukoushik1:koushik2004@koushik.jttd3u3.mongodb.net/users');
+mongoose.connect("mongodb+srv://koushik:koushik@cluster0.h2lzgvs.mongodb.net/project");
 
 app.get("/register", function (req, res) { 
     res.sendFile(__dirname+"/views/register.html")
  })
-
+ const itemschema= mongoose.Schema({
+  name:String,
+  person:String,
+  pid:String,
+  url:String,
+  base_price:Number,
+  date:String,
+  type:String
+})
 const userschema = mongoose.Schema({
     email:String,
-    password:String
+    password:String,
+    arts:[itemschema],
+    antiques:[itemschema],
+    used:[itemschema]
 })
-const itemschema= mongoose.Schema({
-    name:String,
-    person:userschema,
-    url:String,
-    base_price:Number,
-    date:Date,
-})
+
 const usermodel = mongoose.model("userdetails",userschema)
 const itemmodel = mongoose.model("items", itemschema)
 app.post("/register", function (req, res) { 
@@ -30,8 +36,11 @@ app.post("/register", function (req, res) {
     var pass = req.body.pass
     const a = new usermodel ({
         email:email,
-        password:pass
-    })
+        password:pass,
+        arts:[],
+        antiques:[],
+        used:[],
+          })
     a.save()
     console.log(a)
     res.redirect("/")
@@ -74,11 +83,41 @@ app.get("/user/:email" , function (req, res) {
   })
  })
 
-app.get("/user/create/:email", function (req, res) { 
+app.get("/user/create/:name", function (req, res) { 
     console.log("req")
-  res.render("create" , {k:req.params.email})
-
+  res.render("create" , {k:req.params.name})
  })
+app.post("/user/create/:name", function (req, res) { 
+    var nam = "";
+
+    usermodel.find().then((arr) => {
+        for (let index = 0; index < arr.length; index++) {
+            console.log(arr[index]._id, req.params.name, arr[index].email);
+            if (arr[index]._id == req.params.name) {
+                console.log("ok");
+                nam = arr[index].email;
+              console.log(typeof(req.body.date))
+                const item = new itemmodel({
+                    name: req.body.name,
+                    person: nam,
+                    pid: req.params.name,
+                    url: req.body.link,
+                    base_price: req.body.price,
+                    date: req.body.date,
+                  type:req.body.type
+                  });
+                item.save()
+                return;
+            }
+        }
+    }).catch((error) => {
+        console.error("Error:", error);
+    });
+    
+    // The following console.log will likely execute before the user is found
+
+  res.redirect("/user/"+req.params.name)
+})
 
  app.get("/", function (req, res) { 
     res.sendFile(__dirname+"/views/intro.html")
