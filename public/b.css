@@ -16,8 +16,39 @@
     justify-content: center;
     align-items: center;
 }
-.item{
+.black{
     background-color: black;
     color: white;
     border: solid red;
+}
+
+.blue{
+    background-color: blue;
+    color: white;
+    border: solid black;
+}
+.red{
+    background-color: red;
+    color: white;
+    border: solid yellow;
+}
+.items{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    width: 1000px;
+}
+.item{
+    height: 400px;
+    width: 400px;
+}
+.item img{
+  height: 200px;
+  width: 200px;
+}
+.butn{
+    background-color: limegreen;
+    border: solid white;
+    width: 150px;
+    height: 30px;
 }

@@ -18,15 +18,17 @@ app.get("/register", function (req, res) {
   pid:String,
   url:String,
   base_price:Number,
+  current_bidder:String,
+  current_price:String,
   date:String,
-  type:String
+  type:String,
+  class:String, 
+  aution_active:Boolean
 })
 const userschema = mongoose.Schema({
     email:String,
     password:String,
-    arts:[itemschema],
-    antiques:[itemschema],
-    used:[itemschema]
+    items:[itemschema]
 })
 
 const usermodel = mongoose.model("userdetails",userschema)
@@ -96,7 +98,20 @@ app.post("/user/create/:name", function (req, res) {
             if (arr[index]._id == req.params.name) {
                 console.log("ok");
                 nam = arr[index].email;
-              console.log(typeof(req.body.date))
+                var classs =""
+                switch (req.body.type) {
+                  case "art":
+                    classs="black"
+                    break;
+                  case "antique":
+                    classs="blue"
+                    break;
+                  case "used":
+                    classs="red" 
+                    break;
+                  default:
+                    break;
+                }
                 const item = new itemmodel({
                     name: req.body.name,
                     person: nam,
@@ -104,24 +119,90 @@ app.post("/user/create/:name", function (req, res) {
                     url: req.body.link,
                     base_price: req.body.price,
                     date: req.body.date,
-                  type:req.body.type
+                  type:req.body.type,
+                  current_price:req.body.price,
+                  current_bidder:"",
+                  class:classs,
+                  aution_active:false
                   });
                 item.save()
+                usermodel.findOne({ _id: req.params.name })
+                .then((user) => {
+                  if (user) {
+                    // User found, update the items array
+                    user.items.push(item); 
+                    return user.save();
+                  } else {
+                    console.log('User not found');
+                  }
+                })
+                .catch((err) => {
+                  console.error('Error updating user:', err);
+                });
                 return;
             }
         }
     }).catch((error) => {
         console.error("Error:", error);
     });
-    
-    // The following console.log will likely execute before the user is found
-
   res.redirect("/user/"+req.params.name)
 })
 
+// route for individual user items
+app.get("/items/:id", function (req, res) { 
+   usermodel.findOne({_id:req.params.id}).then((result)=>{
+    if (result.items.length==0) {
+      res.send("no items ")
+      return
+    } 
+    res.render("item",{arr:result} )
+   })
+ })
+
+//auction page for users
+app.get("/:userid/auction/item/:itemid", function (req, res) { 
+  itemmodel.findOne({_id:req.params.itemid}).then((result)=>{
+    if (result.pid==req.params.userid) {
+     res.redirect("/"+req.params.userid+"/auction/item/"+req.params.itemid+"/owner")
+      return
+    } 
+   var data = {
+    user: req.params.userid,
+    item:result
+   }
+
+    res.render("auctionpage",{arr:data} )
+   })
+ })
+ app.post("/:userid/auction/item/:itemid", function (req, res) { 
+  console.log("heere")
+  var price = req. body.bid
+  itemmodel.findOne({_id:req.params.itemid}).then((result)=>{
+  if (price<=result.current_price) {
+    console.log("/"+req.params.userid+"/auction/item/"+req.params.itemid)    
+    res.redirect("/"+req.params.userid+"/auction/item/"+req.params.itemid)
+  }else{
+    itemmodel.findOne({_id:req.params.itemid}).then((result)=>{
+      result.current_price=price
+      result.current_bidder=returnname(req. params.userid)
+       result.save();
+       res.redirect("/"+req.params.userid+"/auction/item/"+req.params.itemid)
+      })
+  }
+    })
+  })
  app.get("/", function (req, res) { 
     res.sendFile(__dirname+"/views/intro.html")
   })
 
 app.listen(3000, function (param) {  })
 
+function returnname(id) {
+   usermodel.find().then((arr)=>{
+    for (let index = 0; index < arr.length; index++) {
+      if (arr[index]._id==id) {
+        return arr[index].email
+      } 
+    }
+   })
+}

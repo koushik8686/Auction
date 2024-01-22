@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>auction</title>
+</head>
+<link rel="stylesheet" type="text/css" href="/b.css">
+<body>
+     <h1> current bid :<%= arr.item.current_price %></h1>
+     <h2> base price :<%= arr.item.base_price %></h2>
+     <div class="<%= arr.item.class %>">
+      <img src="<%= arr.item.url %> " alt="">
+      <p> name: <%= arr.item.name %> </p>
+      <p>owner :<%= arr.item.person %></p>
+      <p>type : <%= arr.item.type %></p>
+      <p>current bidder : <%= arr.item.current_bidder %></p>
+     <form action="/<%= arr.user %>/auction/item/<%= arr.item._id %>">
+      <input type="number" name="bid" placeholder="enter bid" id="">
+      <button type="submit"> bid
+      </button>
+    </form>
+    </div>
+</body>
+</html>

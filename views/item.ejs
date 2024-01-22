@@ -3,23 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>items</title>
 </head>
 <link rel="stylesheet" type="text/css" href="/b.css">
 <body>
-    <h1> items </h1>
-    <a href="/user/create/<%= arr.id %>">create auction</a>
-    <a href="/items/<%= arr.id %>">my items</a>
-    
+   <h1>items of <%= arr.email %></h1>
+    <a href="/user/<%= arr.id %>">home</a>
     <div class="items">
         <% for (let index = 0; index < arr.items.length; index++) { %>
            <div class="<%= arr.items[index].class %> item">
             <img src=<%= arr.items[index].url %> alt="">
             <p> <%= arr.items[index].name %> </p>
-            <p> <%= arr.items[index].person %> </p>
             <p> <%= arr.items[index].base_price %> </p>
             <p> <%= arr.items[index].date %> </p>
-            <a href="/<%= arr.id %>/auction/item/<%= arr.items[index]._id %>">
+            <a href="/<%= arr.id %>/auction/item/<%= arr.items[index]._id %>/owner">
              <button class="butn"> go to auction</button>
             </a>
            </div>
