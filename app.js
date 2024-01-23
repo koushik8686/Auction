@@ -3,6 +3,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const app = express();
 app.set('view engine', 'ejs');
+app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 var items =[]
@@ -30,7 +31,6 @@ const userschema = mongoose.Schema({
     password:String,
     items:[itemschema]
 })
-
 const usermodel = mongoose.model("userdetails",userschema)
 const itemmodel = mongoose.model("items", itemschema)
 app.post("/register", function (req, res) { 
@@ -47,51 +47,51 @@ app.post("/register", function (req, res) {
     console.log(a)
     res.redirect("/")
  })
-
  app.get("/login", function (req, res) { 
     res.sendFile(__dirname+"/views/login.html")
   })
-
 app.post("/login" , function (req, res) { 
     var email = req.body.email
     var pass = req.body.pass
     usermodel.find().then((arr)=>{
         var item
         for (let index = 0; index < arr.length; index++) {
-          if (arr[index].password==pass) {
+          if (arr[index].password==pass&&arr[index].email==email) {
             item=arr[index]
           }
         }
         if (!item) {
             res.redirect("/register")
-        }
-        
+        }    
         if (item.password==pass) {
     var t= item._id
-            res.redirect("/user/"+item._id)
+           res.redirect("/user/"+item._id)
         } else {
           res.send("wrong pass")
         }
     })
  })
- 
 app.get("/user/:email" , function (req, res) { 
+  var name = " "
+  usermodel.findOne({_id:req.params.email}).then((result)=>{
+    name=result.email
+    console.log(name)
+  })
   itemmodel.find().then((arr)=>{
     var data = {
+        user:name,
         id:req.params.email,
         items:arr
     }
     res.render("home", {arr:data})
   })
  })
-
 app.get("/user/create/:name", function (req, res) { 
     console.log("req")
   res.render("create" , {k:req.params.name})
  })
 app.post("/user/create/:name", function (req, res) { 
     var nam = "";
-
     usermodel.find().then((arr) => {
         for (let index = 0; index < arr.length; index++) {
             console.log(arr[index]._id, req.params.name, arr[index].email);
@@ -121,10 +121,11 @@ app.post("/user/create/:name", function (req, res) {
                     date: req.body.date,
                   type:req.body.type,
                   current_price:req.body.price,
-                  current_bidder:"",
+                  current_bidder:" ",
                   class:classs,
                   aution_active:false
                   });
+                console.log(item)
                 item.save()
                 usermodel.findOne({ _id: req.params.name })
                 .then((user) => {
@@ -147,7 +148,6 @@ app.post("/user/create/:name", function (req, res) {
     });
   res.redirect("/user/"+req.params.name)
 })
-
 // route for individual user items
 app.get("/items/:id", function (req, res) { 
    usermodel.findOne({_id:req.params.id}).then((result)=>{
@@ -158,25 +158,35 @@ app.get("/items/:id", function (req, res) {
     res.render("item",{arr:result} )
    })
  })
-
 //auction page for users
 app.get("/:userid/auction/item/:itemid", function (req, res) { 
+  var name = " "
+  usermodel.findOne({_id:req.params.userid}).then((result)=>{
+   name=result.email
+  })
   itemmodel.findOne({_id:req.params.itemid}).then((result)=>{
+    if (result.aution_active) {
+      res.send("item sold")
+    }
     if (result.pid==req.params.userid) {
      res.redirect("/"+req.params.userid+"/auction/item/"+req.params.itemid+"/owner")
       return
     } 
    var data = {
     user: req.params.userid,
+    username:name,
     item:result
    }
-
     res.render("auctionpage",{arr:data} )
    })
  })
- app.post("/:userid/auction/item/:itemid", function (req, res) { 
+app.post("/:userid/auction/item/:itemid", function (req, res) { 
   console.log("heere")
   var price = req. body.bid
+  var name = " "
+  usermodel.findOne({_id:req.params.userid}).then((result)=>{
+    name=result.email
+  })
   itemmodel.findOne({_id:req.params.itemid}).then((result)=>{
   if (price<=result.current_price) {
     console.log("/"+req.params.userid+"/auction/item/"+req.params.itemid)    
@@ -184,25 +194,41 @@ app.get("/:userid/auction/item/:itemid", function (req, res) {
   }else{
     itemmodel.findOne({_id:req.params.itemid}).then((result)=>{
       result.current_price=price
-      result.current_bidder=returnname(req. params.userid)
+      console.log(name)
+      result.current_bidder=name
        result.save();
        res.redirect("/"+req.params.userid+"/auction/item/"+req.params.itemid)
       })
   }
     })
   })
+//route for owner of the item
+app.get("/:userid/auction/item/:itemid/owner", function (req, res) { 
+  console.log("okaqy")
+  var name = " "
+  usermodel.findOne({_id:req.params.userid}).then((result)=>{
+   name=result.email
+  })
+  itemmodel.findOne({_id:req.params.itemid}).then((result)=>{
+    if (result.aution_active) {
+      res.send("item sold")
+    }
+   var data = {
+    user: req.params.userid,
+    username:name,
+    item:result
+   }
+    res.render("ownerpage",{arr:data} )
+   })
+ })
+ 
+app.post("/:userid/auction/item/:itemid/owner", function (req, res) {
+  itemmodel.findOne({_id:req.params.itemid}).then((result)=>{
+    
+  })
+
+})
  app.get("/", function (req, res) { 
     res.sendFile(__dirname+"/views/intro.html")
   })
-
 app.listen(3000, function (param) {  })
-
-function returnname(id) {
-   usermodel.find().then((arr)=>{
-    for (let index = 0; index < arr.length; index++) {
-      if (arr[index]._id==id) {
-        return arr[index].email
-      } 
-    }
-   })
-}

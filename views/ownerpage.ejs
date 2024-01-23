@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>auction</title>
+    <title>selling page</title>
 </head>
 <link rel="stylesheet" type="text/css" href="/b.css">
 <body>
@@ -13,12 +13,10 @@
      <div class="<%= arr.item.class %>">
       <img src="<%= arr.item.url %> " alt="">
       <p> name: <%= arr.item.name %> </p>
-      <p>owner :<%= arr.item.person %></p>
-      <p>type : <%= arr.item.type %></p>
+       <p>type : <%= arr.item.type %></p>
       <p>current bidder : <%= arr.item.current_bidder %></p>
-     <form method="post" action="/<%= arr.user %>/auction/item/<%= arr.item._id %>">
-      <input type="number" name="bid" placeholder="enter bid" id="">
-      <button type="submit"> bid
+     <form method="post" action="/<%= arr.user %>/auction/item/<%= arr.item._id %>/owner">
+      <button type="submit"> sell
       </button>
     </form>
     </div>
