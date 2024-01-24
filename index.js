@@ -8,7 +8,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 var items =[]
 const { MongoClient, ServerApiVersion } = require('mongodb');
-mongoose.connect("mongodb+srv://koushik:koushik@cluster0.h2lzgvs.mongodb.net/project");
+mongoose.connect("mongodb+srv://koushik:koushik@cluster0.h2lzgvs.mongodb.net/projectv2");
 
 app.get("/register", function (req, res) { 
     res.sendFile(__dirname+"/views/register.html")
@@ -223,12 +223,14 @@ app.get("/:userid/auction/item/:itemid/owner", function (req, res) {
     res.render("ownerpage",{arr:data} )
    })
  })
-app.post("/:userid/auction/item/:itemid/owner", function (req, res) {
+app.post("/:userid/auction/item/:itemid/owner", async function (req, res) {
   var item =[]
   var solditem
+
   itemmodel.findOne({_id:req.params.itemid}).then((result)=>{
+       result.owner=result.current_bidder
+       result.save()
         solditem=result
-    
  //deleting in owner
     usermodel.findOne({_id:req.params.userid}).then((user)=>{
       var objects=user.items
@@ -241,6 +243,7 @@ app.post("/:userid/auction/item/:itemid/owner", function (req, res) {
       user.items=item
       user.save()
      })
+     
   //adding in buyer
   console.log("sold",solditem)
   var buyer = solditem.current_bidder_id
@@ -252,9 +255,10 @@ app.post("/:userid/auction/item/:itemid/owner", function (req, res) {
     user.save()
   })
   })
+  await itemmodel.deleteOne({ _id: req.params.itemid });
   res.redirect("/user/"+req.params.userid)
 })
  app.get("/", function (req, res) { 
     res.sendFile(__dirname+"/views/intro.html")
   })
-app.listen(3000, function (param) {  })
+app.listen(5000, function (param) {  })
