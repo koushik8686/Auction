@@ -20,6 +20,7 @@ app.get("/register", function (req, res) {
   url:String,
   base_price:Number,
   current_bidder:String,
+  current_bidder_id:String,
   current_price:String,
   date:String,
   type:String,
@@ -39,9 +40,7 @@ app.post("/register", function (req, res) {
     const a = new usermodel ({
         email:email,
         password:pass,
-        arts:[],
-        antiques:[],
-        used:[],
+        items:[]
           })
     a.save()
     console.log(a)
@@ -71,18 +70,18 @@ app.post("/login" , function (req, res) {
         }
     })
  })
-app.get("/user/:email" , function (req, res) { 
+app.get("/user/:email" , async function (req, res) { 
   var name = " "
-  usermodel.findOne({_id:req.params.email}).then((result)=>{
+ await usermodel.findOne({_id:req.params.email}).then((result)=>{
     name=result.email
-    console.log(name)
-  })
+     })
   itemmodel.find().then((arr)=>{
     var data = {
         user:name,
         id:req.params.email,
         items:arr
     }
+    console.log(data)
     res.render("home", {arr:data})
   })
  })
@@ -122,6 +121,7 @@ app.post("/user/create/:name", function (req, res) {
                   type:req.body.type,
                   current_price:req.body.price,
                   current_bidder:" ",
+                  current_bidder_id:" ",
                   class:classs,
                   aution_active:false
                   });
@@ -196,6 +196,8 @@ app.post("/:userid/auction/item/:itemid", function (req, res) {
       result.current_price=price
       console.log(name)
       result.current_bidder=name
+      result.current_bidder_id=req.params.userid
+      console.log(result)
        result.save();
        res.redirect("/"+req.params.userid+"/auction/item/"+req.params.itemid)
       })
@@ -221,12 +223,36 @@ app.get("/:userid/auction/item/:itemid/owner", function (req, res) {
     res.render("ownerpage",{arr:data} )
    })
  })
- 
 app.post("/:userid/auction/item/:itemid/owner", function (req, res) {
+  var item =[]
+  var solditem
   itemmodel.findOne({_id:req.params.itemid}).then((result)=>{
+        solditem=result
     
+ //deleting in owner
+    usermodel.findOne({_id:req.params.userid}).then((user)=>{
+      var objects=user.items
+       console.log(objects)
+      for (let index = 0; index < objects.length; index++) {
+         if (objects[index]._id!=req.params.itemid) {
+           item.push(objects[index])
+         }
+      }
+      user.items=item
+      user.save()
+     })
+  //adding in buyer
+  console.log("sold",solditem)
+  var buyer = solditem.current_bidder_id
+  console.log(buyer)
+  usermodel.findOne({_id:buyer}).then ((user)=>{
+   console.log(user)
+    var itemlength = user.items.length
+    user.items[itemlength]=solditem
+    user.save()
   })
-
+  })
+  res.redirect("/user/"+req.params.userid)
 })
  app.get("/", function (req, res) { 
     res.sendFile(__dirname+"/views/intro.html")
