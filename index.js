@@ -6,7 +6,6 @@ app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
-var items =[]
 const { MongoClient, ServerApiVersion } = require('mongodb');
 mongoose.connect("mongodb+srv://koushik:koushik@cluster0.h2lzgvs.mongodb.net/projectv2");
 
@@ -188,7 +187,7 @@ app.post("/:userid/auction/item/:itemid", function (req, res) {
     name=result.email
   })
   itemmodel.findOne({_id:req.params.itemid}).then((result)=>{
-  if (price<=result.current_price) {
+  if (price<result.current_price||price<result.base_price) {
     console.log("/"+req.params.userid+"/auction/item/"+req.params.itemid)    
     res.redirect("/"+req.params.userid+"/auction/item/"+req.params.itemid)
   }else{
@@ -224,29 +223,31 @@ app.get("/:userid/auction/item/:itemid/owner", function (req, res) {
    })
  })
 app.post("/:userid/auction/item/:itemid/owner", async function (req, res) {
-  var item =[]
   var solditem
-
   itemmodel.findOne({_id:req.params.itemid}).then((result)=>{
+      console.log(result)
        result.owner=result.current_bidder
        result.save()
-        solditem=result
+       console.log("after", result)
+       solditem=result
  //deleting in owner
     usermodel.findOne({_id:req.params.userid}).then((user)=>{
       var objects=user.items
        console.log(objects)
-      for (let index = 0; index < objects.length; index++) {
-         if (objects[index]._id!=req.params.itemid) {
-           item.push(objects[index])
-         }
-      }
-      user.items=item
-      user.save()
+       usermodel.findOneAndUpdate(
+        { _id: req.params.userid },
+        { $pull: { items: { _id: req.params.itemid } } },
+        { new: true }
+      )
      })
-     
   //adding in buyer
   console.log("sold",solditem)
-  var buyer = solditem.current_bidder_id
+  var buyer = result.current_bidder_id
+  usermodel.findOneAndUpdate(
+    { _id: buyer },
+    { $push: { items: result } }, // Assuming solditem has a unique _id
+    { new: true }
+  );
   console.log(buyer)
   usermodel.findOne({_id:buyer}).then ((user)=>{
    console.log(user)
@@ -261,4 +262,4 @@ app.post("/:userid/auction/item/:itemid/owner", async function (req, res) {
  app.get("/", function (req, res) { 
     res.sendFile(__dirname+"/views/intro.html")
   })
-app.listen(5000, function (param) {  })
+app.listen(3000, function (param) {  })
