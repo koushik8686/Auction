@@ -6,12 +6,91 @@
     <title>Document</title>
     <link rel="stylesheet" href="b.css">
 </head>
+
+<style>
+    button:hover{
+        background-color: white;
+        color: black;
+    }
+     body{
+        backdrop-filter: blur(5px);
+        height: 600px;
+        background-image: url(https://img.freepik.com/free-vector/abstract-dark-blue-vector-futuristic-digital-grid-background_53876-110562.jpg?size=626&ext=jpg&ga=GA1.1.2092140943.1701793667&semt=ais);
+        background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+        }
+        .heading{
+            font-size: 60px;
+            color: white;
+    font-family: cursive;
+    text-shadow: 2px 2px black; 
+     }
+    input{
+        height: 15%;
+        width: 80%;
+        font-size: 20px;
+        border: solid whitesmoke;
+        /* From https://css.glass */
+background: rgba(255, 255, 255, 0.18);
+border-radius: 16px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(10px);
+-webkit-backdrop-filter: blur(10px);
+border: 1px solid rgba(255, 255, 255, 0.3);
+color:  white;
+ border-radius: 20px;
+ margin-top: 10px;
+ margin-bottom: 10px;
+    }
+    input::placeholder{
+        color: white;
+        font-size: large;
+    }
+  .box{
+    border: solid white;
+    height: 80%;
+    width: 30%;
+    /* From https://css.glass */
+background: rgba(255, 255, 255, 0.19);
+border-radius: 16px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(6px);
+-webkit-backdrop-filter: blur(6px);
+border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+  .l, form{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  button{
+    height: 15%;
+        width: 80%;
+        border-radius: 20px;
+        margin-top: 10px;
+        font-size:25px;
+    /* From https://css.glass */
+/* From https://css.glass */
+background: rgba(255, 255, 255, 0.77);
+border-radius: 16px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(13.7px);
+-webkit-backdrop-filter: blur(13.7px);
+border: 1px solid rgba(255, 255, 255, 0.61);
+  }
+    </style>
 <body>
     <div class="box">
-        <h1 style="text-align: center;">register</h1>
+        <h1 class="heading" style="text-align: center;">Register</h1>
         <form class="for" method="post" action="/register">
-           <div class="l"> <input class="in" name="email" type="text" placeholder="name">
-            <input class="in" type="text" placeholder="pass" name="pass" >
+           <div class="l"> <input class="in" name="email" type="text" placeholder=" username">
+            <input class="in" type="text" placeholder="create password" name="pass" >
             <button class="btn" type="submit">register</button></div>
         </form>
     </div>

@@ -58,7 +58,7 @@ app.post("/login" , function (req, res) {
             item=arr[index]
           }
         }
-        if (!item) {
+        if (item===undefined) {
             res.redirect("/register")
         }    
         if (item.password==pass) {
@@ -148,8 +148,8 @@ app.post("/user/create/:name", function (req, res) {
   res.redirect("/user/"+req.params.name)
 })
 // route for individual user items
-app.get("/items/:id", function (req, res) { 
-   usermodel.findOne({_id:req.params.id}).then((result)=>{
+app.get("/items/:id", async function (req, res) { 
+  await usermodel.findOne({_id:req.params.id}).then((result)=>{
     if (result.items.length==0) {
       res.send("no items ")
       return
@@ -158,12 +158,18 @@ app.get("/items/:id", function (req, res) {
    })
  })
 //auction page for users
-app.get("/:userid/auction/item/:itemid", function (req, res) { 
+app.get("/:userid/auction/item/:itemid", async function (req, res) { 
   var name = " "
-  usermodel.findOne({_id:req.params.userid}).then((result)=>{
+  await usermodel.findOne({_id:req.params.userid}).then((result)=>{
+    console.log(result.email)
    name=result.email
   })
+  console.log("name",name)
   itemmodel.findOne({_id:req.params.itemid}).then((result)=>{
+    if (!result) {
+      res.send("item sold")
+      return
+    }
     if (result.aution_active) {
       res.send("item sold")
     }
@@ -176,6 +182,7 @@ app.get("/:userid/auction/item/:itemid", function (req, res) {
     username:name,
     item:result
    }
+   console.log(data)
     res.render("auctionpage",{arr:data} )
    })
  })
@@ -187,6 +194,10 @@ app.post("/:userid/auction/item/:itemid", function (req, res) {
     name=result.email
   })
   itemmodel.findOne({_id:req.params.itemid}).then((result)=>{
+    if (!result) {
+      res.send("item sold")
+      return
+    }
   if (price<result.current_price||price<result.base_price) {
     console.log("/"+req.params.userid+"/auction/item/"+req.params.itemid)    
     res.redirect("/"+req.params.userid+"/auction/item/"+req.params.itemid)
@@ -204,13 +215,17 @@ app.post("/:userid/auction/item/:itemid", function (req, res) {
     })
   })
 //route for owner of the item
-app.get("/:userid/auction/item/:itemid/owner", function (req, res) { 
+app.get("/:userid/auction/item/:itemid/owner", async function (req, res) { 
   console.log("okaqy")
   var name = " "
-  usermodel.findOne({_id:req.params.userid}).then((result)=>{
+  await usermodel.findOne({_id:req.params.userid}).then((result)=>{
    name=result.email
   })
-  itemmodel.findOne({_id:req.params.itemid}).then((result)=>{
+ await itemmodel.findOne({_id:req.params.itemid}).then((result)=>{
+  if (result===undefined) {
+    res.send("item no  more for auction")
+    return
+  }
     if (result.aution_active) {
       res.send("item sold")
     }
@@ -224,14 +239,17 @@ app.get("/:userid/auction/item/:itemid/owner", function (req, res) {
  })
 app.post("/:userid/auction/item/:itemid/owner", async function (req, res) {
   var solditem
-  itemmodel.findOne({_id:req.params.itemid}).then((result)=>{
+ await itemmodel.findOne({_id:req.params.itemid}).then( async (result)=>{
+   if (!result) {
+     res.send("itemsold")
+   }
       console.log(result)
-       result.owner=result.current_bidder
+       result.person=result.current_bidder
        result.save()
        console.log("after", result)
        solditem=result
  //deleting in owner
-    usermodel.findOne({_id:req.params.userid}).then((user)=>{
+  await usermodel.findOne({_id:req.params.userid}).then((user)=>{
       var objects=user.items
        console.log(objects)
        usermodel.findOneAndUpdate(
@@ -243,13 +261,8 @@ app.post("/:userid/auction/item/:itemid/owner", async function (req, res) {
   //adding in buyer
   console.log("sold",solditem)
   var buyer = result.current_bidder_id
-  usermodel.findOneAndUpdate(
-    { _id: buyer },
-    { $push: { items: result } }, // Assuming solditem has a unique _id
-    { new: true }
-  );
   console.log(buyer)
-  usermodel.findOne({_id:buyer}).then ((user)=>{
+ await usermodel.findOne({_id:buyer}).then ((user)=>{
    console.log(user)
     var itemlength = user.items.length
     user.items[itemlength]=solditem
