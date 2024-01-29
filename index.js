@@ -2,13 +2,15 @@ const mongoose = require("mongoose")
 const express = require("express");
 const bodyParser = require("body-parser");
 const app = express();
+const path = require("path");
+
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 const { MongoClient, ServerApiVersion } = require('mongodb');
-mongoose.connect("mongodb+srv://koushik:koushik@cluster0.h2lzgvs.mongodb.net/projectv2");
-
+// mongoose.connect("mongodb+srv://koushik:koushik@cluster0.h2lzgvs.mongodb.net/projectv2");
+mongoose.connect("mongodb://localhost:27017/project")
 app.get("/register", function (req, res) { 
     res.sendFile(__dirname+"/views/register.html")
  })
@@ -30,6 +32,12 @@ const userschema = mongoose.Schema({
     email:String,
     password:String,
     items:[itemschema]
+})
+const sellerschema = mongoose.Schema({
+  name:String,
+  email:String,
+  phone :String,
+  password:String
 })
 const usermodel = mongoose.model("userdetails",userschema)
 const itemmodel = mongoose.model("items", itemschema)
@@ -158,6 +166,7 @@ app.get("/items/:id", async function (req, res) {
    })
  })
 //auction page for users
+
 app.get("/:userid/auction/item/:itemid", async function (req, res) { 
   var name = " "
   await usermodel.findOne({_id:req.params.userid}).then((result)=>{
@@ -275,4 +284,7 @@ app.post("/:userid/auction/item/:itemid/owner", async function (req, res) {
  app.get("/", function (req, res) { 
     res.sendFile(__dirname+"/views/intro.html")
   })
+app.get("/sellerregister", function (req, res) { res.sendFile(__dirname+"/views/sellerregister,html") })
+app.get("/sellerlogin", function (req, res) { res.sendFile(__dirname+"/views/sellerlogin.html") })
+app.get("/seller", function (req, res) {  res.sendFile(__dirname+"/views/sellerintro.html")})
 app.listen(3000, function (param) {  })
