@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/b.css">
+</head>
+<body>
+    <h1> <%= arr.name %> </h1>
+    <a href="/<%= arr._id%>/create"><button> create auction</button></a>
+    <div class="items">
+        <div class="items">
+            <% for (let index = 0; index < arr.items.length; index++) { %>
+               <div class="<%= arr.items[index].class %> item">
+                <img src=<%= arr.items[index].url %> alt="">
+                <p> <%= arr.items[index].name %> </p>
+                <a href="/sell/<%= arr.items[index]._id %>">
+                 <button class="butn"> details </button>
+                </a>
+               </div>
+           <% } %>
+    </div>
+</body>
+</html>

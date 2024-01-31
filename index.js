@@ -10,10 +10,10 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 const { MongoClient, ServerApiVersion } = require('mongodb');
 // mongoose.connect("mongodb+srv://koushik:koushik@cluster0.h2lzgvs.mongodb.net/projectv2");
-mongoose.connect("mongodb://localhost:27017/project")
+mongoose.connect('mongodb://127.0.0.1:27017/project')
 app.get("/register", function (req, res) { 
     res.sendFile(__dirname+"/views/register.html")
- })
+ }) 
  const itemschema= mongoose.Schema({
   name:String,
   person:String,
@@ -37,8 +37,10 @@ const sellerschema = mongoose.Schema({
   name:String,
   email:String,
   phone :String,
-  password:String
+  password:String,
+  items:[itemschema]
 })
+const sellermodel = mongoose.model("sellers", sellerschema)
 const usermodel = mongoose.model("userdetails",userschema)
 const itemmodel = mongoose.model("items", itemschema)
 app.post("/register", function (req, res) { 
@@ -92,69 +94,7 @@ app.get("/user/:email" , async function (req, res) {
     res.render("home", {arr:data})
   })
  })
-app.get("/user/create/:name", function (req, res) { 
-    console.log("req")
-  res.render("create" , {k:req.params.name})
- })
-app.post("/user/create/:name", function (req, res) { 
-    var nam = "";
-    usermodel.find().then((arr) => {
-        for (let index = 0; index < arr.length; index++) {
-            console.log(arr[index]._id, req.params.name, arr[index].email);
-            if (arr[index]._id == req.params.name) {
-                console.log("ok");
-                nam = arr[index].email;
-                var classs =""
-                switch (req.body.type) {
-                  case "art":
-                    classs="black"
-                    break;
-                  case "antique":
-                    classs="blue"
-                    break;
-                  case "used":
-                    classs="red" 
-                    break;
-                  default:
-                    break;
-                }
-                const item = new itemmodel({
-                    name: req.body.name,
-                    person: nam,
-                    pid: req.params.name,
-                    url: req.body.link,
-                    base_price: req.body.price,
-                    date: req.body.date,
-                  type:req.body.type,
-                  current_price:req.body.price,
-                  current_bidder:" ",
-                  current_bidder_id:" ",
-                  class:classs,
-                  aution_active:false
-                  });
-                console.log(item)
-                item.save()
-                usermodel.findOne({ _id: req.params.name })
-                .then((user) => {
-                  if (user) {
-                    // User found, update the items array
-                    user.items.push(item); 
-                    return user.save();
-                  } else {
-                    console.log('User not found');
-                  }
-                })
-                .catch((err) => {
-                  console.error('Error updating user:', err);
-                });
-                return;
-            }
-        }
-    }).catch((error) => {
-        console.error("Error:", error);
-    });
-  res.redirect("/user/"+req.params.name)
-})
+
 // route for individual user items
 app.get("/items/:id", async function (req, res) { 
   await usermodel.findOne({_id:req.params.id}).then((result)=>{
@@ -224,11 +164,11 @@ app.post("/:userid/auction/item/:itemid", function (req, res) {
     })
   })
 //route for owner of the item
-app.get("/:userid/auction/item/:itemid/owner", async function (req, res) { 
+app.get("/sell/:seller/:itemid", async function (req, res) { 
   console.log("okaqy")
   var name = " "
-  await usermodel.findOne({_id:req.params.userid}).then((result)=>{
-   name=result.email
+  await sellermodel.findOne({_id:req.params.seller}).then((result)=>{
+   name=result.name
   })
  await itemmodel.findOne({_id:req.params.itemid}).then((result)=>{
   if (result===undefined) {
@@ -239,7 +179,7 @@ app.get("/:userid/auction/item/:itemid/owner", async function (req, res) {
       res.send("item sold")
     }
    var data = {
-    user: req.params.userid,
+    user: req.params.seller,
     username:name,
     item:result
    }
@@ -280,11 +220,115 @@ app.post("/:userid/auction/item/:itemid/owner", async function (req, res) {
   })
   await itemmodel.deleteOne({ _id: req.params.itemid });
   res.redirect("/user/"+req.params.userid)
-})
+}) 
  app.get("/", function (req, res) { 
     res.sendFile(__dirname+"/views/intro.html")
   })
-app.get("/sellerregister", function (req, res) { res.sendFile(__dirname+"/views/sellerregister,html") })
+
+//seller authentication
+app.get("/sellerregister", function (req, res) { res.sendFile(__dirname+"/views/sellerregister.html") })
+app.post("/sellerregister" , function (req , res) { 
+  const a = new sellermodel ({
+      name:req.body.name,
+      email:req.body.email,
+      phone:req.body.phone,
+      password:req.body.pass,
+      items:[]
+        })
+  a.save()
+  res.redirect("/sellerlogin")}
+  )
+  
 app.get("/sellerlogin", function (req, res) { res.sendFile(__dirname+"/views/sellerlogin.html") })
+app.post("/sellerlogin", function (req, res) { 
+  var email = req.body.email
+  var pass = req.body.pass
+  sellermodel.find().then((arr)=>{
+      var item
+      for (let index = 0; index < arr.length; index++) {
+        if (arr[index].password==pass&&arr[index].name==email) {
+          item=arr[index]
+        }
+      }
+      if (item===undefined) {
+          res.redirect("/sellerregister")
+          return
+      }    
+      if (item.password==pass) {
+  var t= item._id
+         res.redirect("/seller/"+item._id)
+      } else {
+        res.send("wrong pass")
+      }
+  })
+ })
+app.get("/seller/:id", function (req, res) { 
+  sellermodel.findOne({_id:req.params.id}).then((result)=>{
+    res.render("sellerhome",{arr:result})
+  })
+ })
+app.get("/:seller/create", function (req, res) { 
+  console.log("req")
+res.render("create" , {k:req.params.seller})
+})
+app.post("/:sellerid/create", function (req, res) { 
+  var nam = "";
+  sellermodel.find().then((arr) => {
+      for (let index = 0; index < arr.length; index++) {
+          console.log(arr[index]._id, req.params.name, arr[index].email);
+          if (arr[index]._id == req.params.sellerid) {
+              console.log("ok");
+              nam = arr[index].email;
+              var classs =""
+              switch (req.body.type) {
+                case "art":
+                  classs="black"
+                  break;
+                case "antique":
+                  classs="blue"
+                  break;
+                case "used":
+                  classs="red" 
+                  break;
+                default:
+                  break;
+              }
+              const item = new itemmodel({
+                  name: req.body.name,
+                  person: nam,
+                  pid: req.params.sellerid,
+                  url: req.body.link,
+                  base_price: req.body.price,
+                  date: req.body.date,
+                type:req.body.type,
+                current_price:req.body.price,
+                current_bidder:" ",
+                current_bidder_id:" ",
+                class:classs,
+                aution_active:false
+                });
+              console.log(item)
+              item.save()
+              sellermodel.findOne({ _id: req.params.sellerid })
+              .then((user) => {
+                if (user) {
+                  // User found, update the items array
+                  user.items.push(item); 
+                  return user.save();
+                } else {
+                  console.log('User not found');
+                }
+              })
+              .catch((err) => {
+                // console.error('Error updating user:', err);
+              });
+              return;
+          }
+      }
+  }).catch((error) => {
+      // console.error("Error:", error);
+  });
+res.redirect("/seller/"+req.params.sellerid)
+})
 app.get("/seller", function (req, res) {  res.sendFile(__dirname+"/views/sellerintro.html")})
 app.listen(3000, function (param) {  })

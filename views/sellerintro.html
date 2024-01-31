@@ -3,9 +3,95 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>intro</title>
+    <link rel="stylesheet" href="b.css">
 </head>
-<body>
+
+<style>
+
+.innerlinks{
+    border: solid white;
+    height: 50%;
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+background: rgba(255, 255, 255, 0.19);
+border-radius: 16px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(4px);
+-webkit-backdrop-filter: blur(4px);
+border: 1px solid rgba(255, 255, 255, 0.65);
+}
+.links{
+    width: 30%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.heading{
+    width: 70%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 80px;
+    color: white;
+    font-family: cursive;
+    text-shadow: 2px 2px black;
+}
+.main{
+    height: 100%;
+    display: flex;
+}
+
+button{
+    height: 80px;
+    width: 150px;
+/* From https://css.glass */
+background: rgba(255, 255, 255, 0.26);
+border-radius: 16px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(12.9px);
+-webkit-backdrop-filter: blur(12.9px);
+border: 1px solid rgba(255, 255, 255, 0.65);
+}
+a{
+    margin: 10px;
+}
+ body{
+    backdrop-filter: blur(5px);
+    height: 710px;
+    background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+box-shadow: 0px 0px 41px 15px rgba(250,250,250,0.77);
+ }
+ button:hover{
+    background-color: whitesmoke;
+ }
+</style>
+<body style="background-image: url(https://img.freepik.com/free-vector/abstract-dark-blue-vector-futuristic-digital-grid-background_53876-110562.jpg?size=626&ext=jpg&ga=GA1.1.2092140943.1701793667&semt=ais);">
+  <div class="main">
+    <div class="heading"> Website name</div>
+   <div class="links">
+   <div class="innerlinks">
+    <a href="/sellerregister">
+        <button>
+            Register
+        </button>
+    </a>
+    <a href="/sellerlogin">
+        <button>
+            Login
+        </button>
+    </a>
     
+   </div>
+   </div>
+   
+  </div>
 </body>
 </html>
