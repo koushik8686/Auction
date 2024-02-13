@@ -30,14 +30,16 @@ app.get("/register", function (req, res) {
 const userschema = mongoose.Schema({
     email:String,
     password:String,
-    items:[itemschema]
+    items:[itemschema],
+    isremoved:Boolean
 })
 const sellerschema = mongoose.Schema({
   name:String,
   email:String,
   phone :String,
   password:String,
-  items:[itemschema]
+  items:[itemschema],
+  isremoved :Boolean
 })
 const sellermodel = mongoose.model("sellers", sellerschema)
 const usermodel = mongoose.model("userdetails",userschema)
@@ -89,7 +91,6 @@ app.get("/user/:email" , async function (req, res) {
         id:req.params.email,
         items:arr
     }
-    console.log(data)
     res.render("home", {arr:data})
   })
  })
@@ -330,4 +331,52 @@ app.post("/sell/:seller/:itemid", async function (req, res) {
     res.sendFile(__dirname+"/views/intro.html")
   })
 app.get("/seller", function (req, res) {  res.sendFile(__dirname+"/views/sellerintro.html")})
+
+//admin authentication
+var adminid="koushik"
+var adminpass="1234"
+app.get("/admin",function (req, res) { res.sendFile(__dirname+"/views/adminlogin.html") })
+app.post("/admin",function (req, res) { 
+  if (req.body.name==adminid) {
+    if (req.body.pass==adminpass) {
+      res.redirect("/adminpage")
+    }else{
+      res.send("wrong pass")
+    }
+  }else{
+    res.send("wrong id")
+  }
+ })
+
+//admin page
+app.get("/adminpage",async function (req, res) { 
+ 
+  var users =[]
+  var items = []
+  var sellers =[]
+
+  await usermodel.find().then((arr)=>{
+    arr.forEach(element => {
+      users.push(element)
+    });
+   })
+  await itemmodel.find().then((arr)=>{
+    arr.forEach(element => {
+      items.push(element)
+    });
+   })
+  await sellermodel.find().then((arr)=>{
+    arr.forEach(element => {
+      sellers.push(element)
+    });
+   })
+  
+  var data ={
+     usersdata:users,
+     sellersdata:sellers,
+     itemsdata:items
+  }
+  res.send(data)
+  res.render("adminpage")
+ })
 app.listen(3000, function (param) {  })

@@ -7,14 +7,13 @@
 </head>
 
 <style>
-    button:hover{
+    /* button:hover{
         background-color: white;
         color: black;
     }
      body{
-        
-        height: 600px;
-        background-image: url("art.jpg");
+        height:100vh;
+        background-image: url("pencil.jpg");
         background-position: center;
       background-repeat: no-repeat;
       background-size: cover;
@@ -24,10 +23,9 @@
         }
         .heading{
             font-size: 60px;
-            color: black;
-            
+            color: white;
     font-family: cursive;
-    text-shadow: 2px 2px white; 
+    text-shadow: 2px 2px black; 
      }
     
     input{
@@ -35,33 +33,33 @@
         width: 80%;
         font-size: 30px;
         border: solid whitesmoke;
-        /* From https://css.glass */
+        /* From https://css.glass 
 background: rgba(255, 255, 255, 0.18);
 border-radius: 16px;
 box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-
-border: 1px solid black;
+backdrop-filter: blur(10px);
+-webkit-backdrop-filter: blur(10px);
+border: 1px solid rgba(255, 255, 255, 0.3);
+color:  white;
  border-radius: 20px;
  margin-top: 10px;
  margin-bottom: 10px;
     }
     input::placeholder{
-        color: black;
+        color: white;
         font-size: large;
-        text-align: center;
     }
   .box{
     border: solid white;
-    height: 80%;
+    height: 70%;
     width: 30%;
-    margin-right: 220px;
-    /* From https://css.glass */
 background: rgba(255, 255, 255, 0.19);
 border-radius: 16px;
 box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-
-border: 1px solid ;
-color: black;
+backdrop-filter: blur(6px);
+-webkit-backdrop-filter: blur(6px);
+border: 1px solid rgba(255, 255, 255, 0.3);
+margin-right: 180px;
   }
   .l, form{
     height: 100%;
@@ -69,7 +67,7 @@ color: black;
     display: flex;
     flex-direction: column;
     align-items: center;
-  }
+  } */
   button{
     height: 15%;
         width: 80%;
@@ -81,18 +79,48 @@ color: black;
 background: rgba(255, 255, 255, 0.77);
 border-radius: 16px;
 box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-
-border: 1px solid black;
+backdrop-filter: blur(13.7px);
+-webkit-backdrop-filter: blur(13.7px);
+border: 1px solid rgba(255, 255, 255, 0.61);
+  }
+  div{
+    height: 100px;
+    width: 100px;
+    border: solid;
+  }
+  .a{
+    background-color: red;
+  }
+  .b{
+    background-color: blue;
+  }
+  .op{
+    display: none;
   }
     </style>
 <body>
-    <div class="box">
+    <!-- <div class="box">
         <h1 class="heading" style="text-align: center;">login</h1>
         <form class="for" method="post" action="/login">
            <div class="l"> <input class="in" name="email" type="text" placeholder="name">
             <input class="in" type="text" placeholder="pass" name="pass" >
             <button class="btn" type="submit">login</button></div>
         </form>
-    </div>
+    </div> -->
+    <button id="iu">click</button>
+    <div class="a"></div>
+    <div class="a"></div>
+    <div class="a"></div>
+    <div class="b"></div>
+    <div class="b"></div>
 </body>
 </html>
+
+<script>
+  document.getElementById("iu").addEventListener("click", function (param) { 
+    document.querySelectorAll(".a").forEach((ele) => {
+        ele.classList.toggle("op");
+    });
+});
+
+</script>

@@ -22,7 +22,13 @@
             start selling
          </button>
     </a>
-   
+     <p style="color: wheat;">featured items</p>
+     <div class="buttons">
+        <button id="1">Arts</button>
+        <button id="2">Antiques</button>
+        <button id="3">Used</button>
+        <button id="4">All</button>
+     </div>
     <div class="items">
         <% for (let index = 0; index < arr.items.length; index++) { %>
            <div class="<%= arr.items[index].class %> item">
@@ -44,3 +50,45 @@
     </div>
 </body>
 </html>
+
+<script>
+    document.getElementById("1").addEventListener("click",function () { 
+        document.querySelectorAll(".red").forEach((element) => {
+    element.classList.add("none");
+    });
+        document.querySelectorAll(".blue").forEach((element) => {
+    element.classList.add("none");
+    });
+        document.querySelectorAll(".black").forEach((element) => {
+    element.classList.remove("none");
+    });
+     })
+    document.getElementById("2").addEventListener("click",function () { 
+        document.querySelectorAll(".red").forEach((element) => {
+    element.classList.add("none");
+    });
+        document.querySelectorAll(".black").forEach((element) => {
+    element.classList.add("none");
+    });
+        document.querySelectorAll(".blue").forEach((element) => {
+    element.classList.remove("none");
+    });
+     })
+    document.getElementById("3").addEventListener("click",function () { 
+        document.querySelectorAll(".black").forEach((element) => {
+    element.classList.add("none");
+    });
+        document.querySelectorAll(".blue").forEach((element) => {
+    element.classList.add("none");
+    });
+        document.querySelectorAll(".red").forEach((element) => {
+    element.classList.remove("none");
+    });
+     })
+    document.getElementById("4").addEventListener("click",function () { 
+        document.querySelectorAll(".none").forEach((element) => {
+    element.classList.remove("none");
+    });
+     })
+ 
+</script>

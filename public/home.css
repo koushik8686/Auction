@@ -100,7 +100,9 @@ body{
     margin-right: 20px;
     box-shadow: 4px 4px 30px 2px white;
 }
-
+.none{
+    display: none;
+}
 .top a{
     height: 70%;
 }
