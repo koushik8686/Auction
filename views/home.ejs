@@ -5,28 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-<link rel="stylesheet" type="text/css" href="/b.css">
+<link rel="stylesheet" type="text/css" href="/home.css">
 <body>
-    <h1> items </h1>
-    <h2><%= arr.user %></h2>
+  
+    <div class="top">
+        <div class="navbtn">
+            <i class="fa-light fa-sidebar"></i>
+        </div>
+        <p style="margin-right: 30%;"> items for auction</p>  
+        <img src="https://cdn-icons-png.flaticon.com/128/848/848043.png" alt="">  <%= arr.user %>
+</div>
+  
+<a href="/items/<%= arr.id %>"> my items </a>
     <a href="/seller"> 
          <button> 
             start selling
          </button>
     </a>
-    <a href="/items/<%= arr.id %>">my items</a>
-    
+   
     <div class="items">
         <% for (let index = 0; index < arr.items.length; index++) { %>
            <div class="<%= arr.items[index].class %> item">
             <img src=<%= arr.items[index].url %> alt="">
-            <p> <%= arr.items[index].name %> </p>
-            <p> <%= arr.items[index].person %> </p>
-            <p> <%= arr.items[index].base_price %> </p>
-            <p> <%= arr.items[index].date %> </p>
+           <div class="a">
+        <div class="b">
+            <p> name: <%= arr.items[index].name %> </p>
+            <p> posted by: <%= arr.items[index].person %> </p>
+            <p> base price: <%= arr.items[index].base_price %> </p>
+                </div>
+           <div class="c">
             <a href="/<%= arr.id %>/auction/item/<%= arr.items[index]._id %>">
-             <button class="butn"> go to auction</button>
-            </a>
+                <button class="butn"> go to auction</button>
+               </a>
+           </div>
+           </div>
            </div>
        <% } %>
     </div>

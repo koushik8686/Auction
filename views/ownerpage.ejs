@@ -15,7 +15,7 @@
       <p> name: <%= arr.item.name %> </p>
        <p>type : <%= arr.item.type %></p>
       <p>current bidder : <%= arr.item.current_bidder %></p>
-     <form method="post" action="/<%= arr.user %>/auction/item/<%= arr.item._id %>/owner">
+     <form method="post" action="/sell/<%= arr.user %>/<%= arr.item._id %>">
       <button type="submit"> sell
       </button>
     </form>
