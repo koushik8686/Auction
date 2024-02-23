@@ -22,7 +22,6 @@ app.get("/register", function (req, res) {
   current_bidder:String,
   current_bidder_id:String,
   current_price:String,
-  date:String,
   type:String,
   class:String, 
   aution_active:Boolean
@@ -110,10 +109,8 @@ app.get("/items/:id", async function (req, res) {
 app.get("/:userid/auction/item/:itemid", async function (req, res) { 
   var name = " "
   await usermodel.findOne({_id:req.params.userid}).then((result)=>{
-    console.log(result.email)
    name=result.email
   })
-  console.log("name",name)
   itemmodel.findOne({_id:req.params.itemid}).then((result)=>{
     if (!result) {
       res.send("item sold")
@@ -133,13 +130,13 @@ app.get("/:userid/auction/item/:itemid", async function (req, res) {
     username:name,
     item:result
    }
-   console.log(data)
     res.render("auctionpage",{arr:data} )
    })
  })
 app.post("/:userid/auction/item/:itemid", function (req, res) { 
   console.log("heere")
-  var price = req. body.bid
+  var price=0
+   price =Number(req. body.bid)
   var name = " "
   usermodel.findOne({_id:req.params.userid}).then((result)=>{
     name=result.email
@@ -149,16 +146,16 @@ app.post("/:userid/auction/item/:itemid", function (req, res) {
       res.send("item sold")
       return
     }
+    console.log(result);
   if (price<result.current_price||price<result.base_price) {
+ console.log(price, typeof(price));
     console.log("/"+req.params.userid+"/auction/item/"+req.params.itemid)    
     res.redirect("/"+req.params.userid+"/auction/item/"+req.params.itemid)
   }else{
     itemmodel.findOne({_id:req.params.itemid}).then((result)=>{
       result.current_price=price
-      console.log(name)
       result.current_bidder=name
       result.current_bidder_id=req.params.userid
-      console.log(result)
        result.save();
        res.redirect("/"+req.params.userid+"/auction/item/"+req.params.itemid)
       })
@@ -188,7 +185,7 @@ app.post("/sellerlogin", function (req, res) {
   sellermodel.find().then((arr)=>{
       var item
       for (let index = 0; index < arr.length; index++) {
-        if (arr[index].password==pass&&arr[index].name==email) {
+        if (arr[index].password==pass&&arr[index].email==email) {
           item=arr[index]
         }
       }
@@ -241,7 +238,6 @@ app.post("/:sellerid/create", function (req, res) {
                   pid: req.params.sellerid,
                   url: req.body.link,
                   base_price: req.body.price,
-                  date: req.body.date,
                 type:req.body.type,
                 current_price:req.body.price,
                 current_bidder:" ",
@@ -376,7 +372,48 @@ app.get("/adminpage",async function (req, res) {
      sellersdata:sellers,
      itemsdata:items
   }
-  res.send(data)
-  res.render("adminpage")
+  // res.send(data)
+  res.render("adminpage",{data:data})
+ })
+
+app.get("/delete/:type/:id" , async function (req, res) { 
+  switch (req.params.type) {
+    case "user":
+      await usermodel.findByIdAndDelete(req.params.id);
+      res.redirect("/adminpage")
+      break;
+    case "seller":
+    await sellermodel.findOne({_id:req.params.id}).then(async(arr)=>{
+      for (let i = 0; i < arr.items.length; i++) {
+       await itemmodel.findByIdAndDelete(arr.items[i]._id) 
+      }
+    })  
+    await sellermodel.findByIdAndDelete(req.params.id);
+      res.redirect("/adminpage")
+      break;
+    case "item":
+      const itemId = req.params.id;
+
+      // Find the item by ID and get the seller ID (arr.pid)
+      const item = await itemmodel.findOne({ _id: itemId });
+      if (!item) {
+        return res.status(404).send("Item not found");
+      }
+  
+      const sellerId = item.pid;
+  
+      // Update the seller model to remove the item from the items array
+      await sellermodel.findOneAndUpdate(
+        { _id: sellerId },
+        { $pull: { items: { _id: itemId } } },
+        { new: true }
+      );
+      await itemmodel.findByIdAndDelete(itemId);
+  
+      res.redirect("/adminpage")
+      break;
+    default:
+      break;
+  }
  })
 app.listen(3000, function (param) {  })

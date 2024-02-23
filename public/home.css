@@ -1,52 +1,61 @@
 
-.black{
-    box-shadow: 4px 4px 30px 2px white;
-    color: white;
-    border: solid red;
+.border{
+  border-bottom: solid 4px white;
 }
-.blue{
-    box-shadow: 4px 4px 30px 2px blue;
-    color: white;
-    border: solid black;
-}
-.red{
-    box-shadow: 4px 4px 30px 2px red;
-    color: white;
-    border: solid yellow;
-}
+
 body{
     padding: 0px;
     margin: 0px;
-   background-image: url("/img.jpg");
    background-size: cover;
    background-repeat: no-repeat;
-   height: 600px;
+  overflow-x: hidden;
 }
-
+@keyframes goaway {
+  from{
+    font-size: 15px;
+    opacity: 1;
+  } to{
+    font-size: 1500px;
+  opacity: 0;
+  }
+}
+.parallax {
+  background-image: url(white.jpg);
+  height: 100vh; 
+  background-repeat: no-repeat;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.8);
+  background-size: cover;
+  color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: goaway 3s 1;
+}
 .items {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
     width: 100%;
-    height: 700px;
+    height: 80%;
+    margin-top: 100px;
+    margin-left: 100px;
 }
-
 .item {
     backdrop-filter: blur(1rem);
+    border: 0.1px solid;
     height: 450px;
     width: 400px;
     border-radius: 30px;
-    margin: 20px; /* Adjusted margin for better spacing */
     padding: 20px; /* Added padding for better content spacing */
     font-size: 17px;
     font-family: cursive;
+    background-color: whitesmoke;
 }
-
 .item img {
     height: 300px;
-    width: 100%; /* Ensure the image fills the container width */
-    border-radius: 15px; /* Added border-radius to the image */
-    object-fit:fill; /* Ensure the image covers the entire space */
+    width: 100%; 
+    border-radius: 15px; 
+    object-fit:fill; 
 }
 .a{
     display: flex;
@@ -69,30 +78,115 @@ body{
 
 .butn{
     background-color: limegreen;
-    border: solid white;
+    border: solid black;
     height: 50px;
     width: 100px;
     border-radius: 20px;
 }
+.left{
+    height: 100%;
+    width: 10%;
+    background-color: black;
+    border: solid white;
+    padding-top: 5rem;
+}
 .navbtn{
-    height: 70%;
+    height: 100%;
     width: 4%;
    margin-right: 35%;
 }
-
+#navbar{
+    display: flex;
+    flex-direction: column;
+    z-index: 2;
+   position: fixed;
+   transition: background-color 0.3s ease;
+   background-color: black;
+   z-index: 1;
+}
 .top{
-    background-color: #26271A;
     color: white;
     height:70px;
     margin: 0px;
     display: flex;
-    align-items: center;
-    justify-content: right;
     padding-right: 20px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 30px;
+    width: 100vw;
 }
-
+.user{
+  width: 30%;
+  height: 100%;
+}
+.logo{
+  width: 20%;
+  height: 100%;
+}
+.buttons{
+  height: 100%;
+  width: 50%;
+  font-size: 30px;
+  cursor: pointer;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+.buttons a{
+  color: white;
+  text-decoration: none;
+  margin: 0;
+  padding: 0;
+}
+.parallax a{
+  color: white;
+  text-decoration: none;
+  margin: 0;
+  font-size: 30px;
+  padding: 0;
+}
+.total{
+    width: 100%;
+    height: 90%;
+    display: flex;
+}
+.sticky {
+    position: fixed;
+    top: 0;
+    width: 100%; 
+}
+.btn{
+  border: solid;
+  height: 50px;
+  width: 250px;
+  border-radius: 20px;
+  backdrop-filter: blur(1rem);
+}
+.anim{
+    animation: anim 1s 1 ;
+  }
+  .x{
+    display: flex;
+    flex-direction: row;
+  }
+  @keyframes anim {
+    from{
+      opacity: 1;
+    } to {
+      opacity: 0;
+    }
+  }
+  .revanim{
+    animation: revanim 1s 1;
+  }
+  @keyframes revanim {
+    from{opacity: 0;}
+    to{opacity: 1;}
+  }
+  .sort{
+    color: red;
+  }
 .top img {
     height: 70%;
     background-color: white;
@@ -103,6 +197,28 @@ body{
 .none{
     display: none;
 }
-.top a{
-    height: 70%;
+@keyframes comedown {
+  from{
+    margin-bottom: 500px;
+  } to{
+    margin-bottom: 0px;
+  }
+}
+.comedown{
+  animation: comedown 4s 1;
+}
+.comeup{
+  animation: comeup 4s 1;
+}
+@keyframes comeup {
+  from{
+    margin-top: 1000px;
+  } to{
+    margin-top: 100px;
+  }
+}
+.user{
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

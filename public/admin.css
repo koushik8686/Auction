@@ -1,0 +1,111 @@
+.main{
+    display: flex;
+ height: 100vh;
+ width: 100vw;
+}
+*{
+    margin: 0;
+    padding:0  ;
+    transition: 3s;
+}
+.sidebar{
+ height: 100vh;
+ width: 10%;
+ background-color: orangered;
+}
+.none{
+    display: none;
+}
+.users{
+    display: flex;
+    flex-wrap: nowrap;
+    width: 100%;
+}
+.sellers{
+    display: none;
+    flex-wrap: nowrap;
+    width: 100%;
+}
+
+.user{
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    height: 20%;
+    border: solid;
+    background-color: red;
+    color: white;
+}
+
+.seller{
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    height: 20%;
+    border: solid;
+    background-color: black;
+    color: white;
+}
+.right{
+    width: 90%;
+    height: 100vh;
+    overflow-y: scroll;
+}
+.items {
+    display: none;
+    flex-wrap: wrap;
+    gap: 20px;
+    width: 100%;
+    height: 700px;
+}
+
+.item {
+    backdrop-filter: blur(1rem);
+    height: 450px;
+    width: 400px;
+    border-radius: 30px;
+    margin: 20px; /* Adjusted margin for better spacing */
+    padding: 20px; /* Added padding for better content spacing */
+    font-size: 17px;
+    font-family: cursive;
+}
+
+.item img {
+    height: 300px;
+    width: 100%; /* Ensure the image fills the container width */
+    border-radius: 15px; /* Added border-radius to the image */
+    object-fit:fill; /* Ensure the image covers the entire space */
+}
+.a{
+    display: flex;
+    flex-direction: row;
+    margin: 30px;
+}
+.b{
+    width: 70%;
+}
+.c{
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.black{
+    box-shadow: 4px 4px 30px 2px white;
+    color: white;
+    border: solid red;
+    background-color: black;
+}
+.blue{
+    box-shadow: 4px 4px 30px 2px blue;
+    color: white;
+    border: solid black;
+    background-color: blue;
+}
+.red{
+    box-shadow: 4px 4px 30px 2px red;
+    color: white;
+    border: solid yellow;
+    background-color: red;
+}

@@ -7,7 +7,7 @@
 </head>
 
 <style>
-    /* button:hover{
+    /* div:hover{
         background-color: white;
         color: black;
     }
@@ -68,7 +68,7 @@ margin-right: 180px;
     flex-direction: column;
     align-items: center;
   } */
-  button{
+  div{
     height: 15%;
         width: 80%;
         border-radius: 20px;
@@ -94,8 +94,25 @@ border: 1px solid rgba(255, 255, 255, 0.61);
   .b{
     background-color: blue;
   }
-  .op{
+  .none{
     display: none;
+  }
+  .anim{
+    animation: anim 1s 1 ;
+  }
+  @keyframes anim {
+    from{
+      opacity: 1;
+    } to {
+      opacity: 0;
+    }
+  }
+  .revanim{
+    animation: revanim 1s 1;
+  }
+  @keyframes revanim {
+    from{opacity: 0;}
+    to{opacity: 1;}
   }
     </style>
 <body>
@@ -104,23 +121,50 @@ border: 1px solid rgba(255, 255, 255, 0.61);
         <form class="for" method="post" action="/login">
            <div class="l"> <input class="in" name="email" type="text" placeholder="name">
             <input class="in" type="text" placeholder="pass" name="pass" >
-            <button class="btn" type="submit">login</button></div>
+            <div class="btn" type="submit">login</div></div>
         </form>
     </div> -->
-    <button id="iu">click</button>
-    <div class="a"></div>
-    <div class="a"></div>
-    <div class="a"></div>
-    <div class="b"></div>
+    <div id="iu">click</div>
+    <div id="u">click</div>
+    <div class="a "></div>
+    <div class="a  c"></div>
+    <div class="a  c"></div>
+    <div class="a  c"></div>
+    <div class="b x"></div>
+    <div class="b x"></div>
     <div class="b"></div>
 </body>
 </html>
 
+
 <script>
   document.getElementById("iu").addEventListener("click", function (param) { 
-    document.querySelectorAll(".a").forEach((ele) => {
-        ele.classList.toggle("op");
+    document.querySelectorAll(".c").forEach((ele) => {
+      ele.classList.add("anim")
+      document.querySelectorAll(".x").forEach((el) => {
+      el.classList.remove("anim")
+      el.classList.remove("none")
+      el.classList.add("revanim")
     });
+      setTimeout(() => {
+        ele.classList.add("none")
+      }, 1);
+    });
+  
+});
+  document.getElementById("u").addEventListener("click", function (param) { 
+    document.querySelectorAll(".x").forEach((ele) => {
+      ele.classList.add("anim")
+      setTimeout(() => {
+        ele.classList.add("none")
+      }, 1);
+      document.querySelectorAll(".c").forEach((el) => {
+      el.classList.remove("anim")
+      el.classList.remove("none")
+      el.classList.add("revanim")
+    });
+    });
+   
 });
 
 </script>

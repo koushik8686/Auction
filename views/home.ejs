@@ -7,31 +7,26 @@
 </head>
 <link rel="stylesheet" type="text/css" href="/home.css">
 <body>
-  
-    <div class="top">
-        <div class="navbtn">
-            <i class="fa-light fa-sidebar"></i>
-        </div>
-        <p style="margin-right: 30%;"> items for auction</p>  
-        <img src="https://cdn-icons-png.flaticon.com/128/848/848043.png" alt="">  <%= arr.user %>
-</div>
-  
-<a href="/items/<%= arr.id %>"> my items </a>
-    <a href="/seller"> 
-         <button> 
-            start selling
-         </button>
-    </a>
-     <p style="color: wheat;">featured items</p>
-     <div class="buttons">
-        <button id="1">Arts</button>
-        <button id="2">Antiques</button>
-        <button id="3">Used</button>
-        <button id="4">All</button>
-     </div>
-    <div class="items">
+  <div id="po" class="parallax">Hexart</div>
+    <div id="navbar">
+      <div class="top" >
+        <div class="logo"></div>
+        <div class="buttons">
+          <a href="/items/<%= arr.id %>"> my items </a>
+          <a href="/seller">start selling </a>
+          <div class="sort" id="4">All</div>
+          <div class="sort"id="1">Arts</div>
+          <div class="sort" id="2">Antiques</div>
+          <div class="sort" id="3">Used</div>
+               </div>
+        <div class="user">    
+          <img src="https://cdn-icons-png.flaticon.com/128/848/848043.png" alt=""> <%= arr.user %> </div>
+       </div>
+       </div>
+ <br>
+     <div id="cv" class="items">
         <% for (let index = 0; index < arr.items.length; index++) { %>
-           <div class="<%= arr.items[index].class %> item">
+           <div class="<%= arr.items[index].class %> item ">
             <img src=<%= arr.items[index].url %> alt="">
            <div class="a">
         <div class="b">
@@ -48,47 +43,75 @@
            </div>
        <% } %>
     </div>
+  
+
 </body>
 </html>
-
 <script>
-    document.getElementById("1").addEventListener("click",function () { 
-        document.querySelectorAll(".red").forEach((element) => {
-    element.classList.add("none");
+  document.getElementById("1").addEventListener("click", function (param) { 
+    document.getElementById("1").classList.add("border")
+    document.getElementById("2").classList.remove("border")
+    document.getElementById("3").classList.remove("border")
+    document.getElementById("4").classList.remove("border")
+    document.querySelectorAll(".red").forEach((ele) => {
+      ele.classList.add("anim")
+      ele.classList.remove("reanim")
+      ele.classList.add("none")
+      document.querySelectorAll(".black").forEach((el) => {
+      el.classList.remove("anim")
+      el.classList.remove("none")
+      el.classList.add("revanim")
     });
-        document.querySelectorAll(".blue").forEach((element) => {
-    element.classList.add("none");
     });
-        document.querySelectorAll(".black").forEach((element) => {
-    element.classList.remove("none");
+  })
+  document.getElementById("2").addEventListener("click", function (param) { 
+    document.getElementById("1").classList.remove("border")
+    document.getElementById("2").classList.add("border")
+    document.getElementById("3").classList.remove("border")
+    document.getElementById("4").classList.remove("border")
+   document.querySelectorAll(".red ,.black").forEach((ele) => {
+      ele.classList.add("anim")
+        ele.classList.add("none")
+        ele.classList.remove("reanim")
+      document.querySelectorAll(".blue").forEach((el) => {
+      el.classList.remove("anim")
+      el.classList.remove("none")
+      el.classList.add("revanim")
     });
-     })
-    document.getElementById("2").addEventListener("click",function () { 
-        document.querySelectorAll(".red").forEach((element) => {
-    element.classList.add("none");
     });
-        document.querySelectorAll(".black").forEach((element) => {
-    element.classList.add("none");
+  })
+  document.getElementById("3").addEventListener("click", function (param) { 
+    document.getElementById("1").classList.remove("border")
+    document.getElementById("2").classList.remove("border")
+    document.getElementById("3").classList.add("border")
+    document.getElementById("4").classList.remove("border")
+   document.querySelectorAll(".black ,.blue").forEach((ele) => {
+      ele.classList.add("anim")
+      ele.classList.add("none")
+      ele.classList.remove("reanim")
+      document.querySelectorAll(".red").forEach((el) => {
+      el.classList.remove("anim")
+      el.classList.remove("none")
+      el.classList.add("revanim")
     });
-        document.querySelectorAll(".blue").forEach((element) => {
-    element.classList.remove("none");
     });
-     })
-    document.getElementById("3").addEventListener("click",function () { 
-        document.querySelectorAll(".black").forEach((element) => {
-    element.classList.add("none");
-    });
-        document.querySelectorAll(".blue").forEach((element) => {
-    element.classList.add("none");
-    });
-        document.querySelectorAll(".red").forEach((element) => {
-    element.classList.remove("none");
-    });
-     })
-    document.getElementById("4").addEventListener("click",function () { 
-        document.querySelectorAll(".none").forEach((element) => {
-    element.classList.remove("none");
-    });
-     })
- 
+  })
+  document.getElementById("4").addEventListener("click", function (param) { 
+    document.getElementById("1").classList.remove("border")
+    document.getElementById("2").classList.remove("border")
+    document.getElementById("3").classList.remove("border")
+    document.getElementById("4").classList.add("border")
+    console.log("all");
+   document.querySelectorAll(".item").forEach((ele) => {
+    ele.classList.remove("anim")  
+    ele.classList.remove("revanim")  
+    ele.classList.remove("none")  
+    ele.classList.add("revanim")  
+  })
+})
+window.onscroll = function() {myFunction()};
+setTimeout(() => {
+  document.getElementById("po").style.display="none"
+  document.getElementById("cv").classList.add("comeup")
+  }, 3000);
 </script>
