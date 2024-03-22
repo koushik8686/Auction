@@ -6,34 +6,54 @@
     <title>intro</title>
     <link rel="stylesheet" href="b.css">
 </head>
-
+ class="c"
 <style>
+   .ball{
+    height: 5px;
+    width: 5px;
+    background-color: white;
+  z-index: 3;
+  border-radius: 50%;
+  position: fixed;
+}
+   .box {
+        width: 100vw;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 3px;
+        bottom: 100vh;
+        z-index: 1;
+        position: relative;
+    }
+
+.b {
+    height: 110px;
+    width: 110px;
+    border-radius: 0px;
+    background-color: #2c2c2c;
+}
+
+.main{
+    height: 100vh;
+
+  z-index: 2;
+  position: relative;
+}
 
 .innerlinks{
-    border: solid white;
-    height: 70%;
-    width: 50%;
+    height: 100%;
+    width: 100%;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-background: rgba(255, 255, 255, 0.19);
-border-radius: 16px;
-box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-backdrop-filter: blur(4px);
--webkit-backdrop-filter: blur(4px);
-border: 1px solid rgba(255, 255, 255, 0.65);
+    justify-content: space-around;
 }
 .links{
-    width: 30%;
-    height: 100%;
+    width: 100vw;
+    height: 10vh;
     display: flex;
-    align-items: center;
-    justify-content: center;
 }
 .heading{
-    width: 70%;
-    height: 100%;
+    width: 100%;
+    height: 90%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -41,66 +61,133 @@ border: 1px solid rgba(255, 255, 255, 0.65);
     color: white;
     font-family: cursive;
     text-shadow: 2px 2px black;
+ position: relative;
+    animation:  move 5s 1 ;
+    right: -10vh;
 }
-.main{
-    height: 100%;
+.c{
+    height: 40px;
+    width: 100px;
     display: flex;
-}
+    justify-content: center;
+    align-items: center;
+ color:  white;
+ background-color: black;
+ box-shadow: 0 0 0 0;
+ transition: all 0.3s ease; /* Set the transition duration and timing function */
 
-button{
-    height: 80px;
-    width: 150px;
-/* From https://css.glass */
-background: rgba(255, 255, 255, 0.26);
-border-radius: 16px;
-box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-backdrop-filter: blur(12.9px);
--webkit-backdrop-filter: blur(12.9px);
-border: 1px solid rgba(255, 255, 255, 0.65);
+}
+.c:hover{
+    background: linear-gradient(90deg, #e3ffe7 0%, #d9e7ff 100%);
+    border: black 5px double;
+    border-radius: 20px;
+    color: black;
+    transition-delay: 0.2s; /* Set the transition delay */
 }
 a{
     margin: 10px;
+    text-decoration: none;
 }
- body{
-    backdrop-filter: blur(5px);
-    height: 710px;
-    background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-box-shadow: 0px 0px 41px 15px rgba(250,250,250,0.77);
- }
- button:hover{
-    background-color: whitesmoke;
- }
+
+ body {
+        background-color: black;
+        height: 90vh;
+        padding: 0;
+        margin: 0;
+        background-image: url(mountain.jpg);
+        background-size: cover;
+        overflow-x: hidden;
+    }
+.sledge {
+    height: 160px;
+    width: 260px;
+    background-image: url("https://ak.picdn.net/shutterstock/videos/22165468/thumb/1.jpg?ip=x480");
+ background-size: cover;
+ background-repeat: no-repeat;
+ animation:  move2 5s 1 ;
+ position: relative;
+animation-delay: 3s;
+}
+
+@keyframes move {
+    0%{
+        right: 100vh;
+    
+    }
+    100%{
+        right: -10vh;
+    }
+}
+@keyframes move2 {
+    0%{
+        left: 0vw;
+    }
+    100%{
+        left: 50vw;
+    }
+}
+
+ @keyframes color {
+        0%{
+            background-color: lawngreen;
+        }
+        50%{
+            background-color: black;
+        }
+        100%{
+            background-color: lawngreen;
+        }
+    }
 </style>
-<body style="background-image: url(https://img.freepik.com/free-vector/abstract-dark-blue-vector-futuristic-digital-grid-background_53876-110562.jpg?size=626&ext=jpg&ga=GA1.1.2092140943.1701793667&semt=ais);">
-  <div class="main">
-    <div class="heading"> Website name</div>
-   <div class="links">
-   <div class="innerlinks">
-    <a href="/register">
-        <button>
-            Register
-        </button>
-    </a>
-    <a href="/login">
-        <button>
-            Login
-        </button>
-    </a>
-    <a href="/about">
-        <button>
-           About
-        </button>
-    </a>
-    <a href="/admin">
-        <button>
-           Admin 
-        </button>
-    </a>
-   </div>
-   </div>
-   
-  </div>
+<body>
+ 
+      <div class="links">
+       <div class="innerlinks">
+        <a href="/register">
+            <div class="c" >
+                Register
+            </div>
+        </a>
+        <a href="/login">
+            <div class="c">
+                Login
+            </div>
+        </a>
+        <a href="/about">
+            <div class="c">
+               About
+            </div>
+        </a>
+        <a href="/admin">
+            <div class="c">
+               Admin 
+            </div>
+        </a>
+       </div>
+       </div>       
+      <div class="heading">
+        HEXART 
+        <div id="sledge" class="sledge"></div></div>
 </body>
+
+<script>
+ setInterval(() => {
+    const para = document.createElement("div");
+    para.classList.add("ball");
+    para.style.top = "0px";
+    para.style.left = Math.random() * window.innerWidth + "px";
+    const speedY = (Math.random()) * 4 +1;
+    const intervalId = setInterval(() => {
+        para.style.top = para.offsetTop + speedY + "px";
+        if (para.offsetTop > window.innerHeight) {
+            clearInterval(intervalId); 
+            para.parentNode.removeChild(para);
+        }
+    }, 10);
+    document.body.appendChild(para);
+}, 100);
+ setTimeout(() => {
+    document.getElementById("sledge").style.opacity="0"
+ }, 7000);
+</script>
 </html>

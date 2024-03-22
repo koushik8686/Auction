@@ -1,0 +1,92 @@
+#navbar{
+    display: flex;
+    flex-direction: column;
+   background-color: #082032 ;
+   color: #F0F3FF;
+   align-items: end;
+}
+.data{
+    color: white;
+}
+.box{
+    margin: 50px ;
+    margin-left: 150px;
+    margin-right: 150px;
+    border: solid;
+ padding: 20px;
+ background-image: -webkit-linear-gradient(10deg, #082032 50%, #334756 50%);
+
+}
+.main{
+    display: flex;
+    gap: 40px;
+    font-size: 20px;
+    
+}
+.bid{
+    color: red;
+    font-size: 25px;
+}
+.main img{
+    height: 300px;
+    width: 400px;
+    margin: 30px;
+    margin-right: 200px;
+    margin-bottom: 0;
+    border: solid;
+}
+.in{
+    display: inline;
+    height: 50px;
+    width: 200px;
+    border: solid;
+    border-radius: 20px;
+}
+
+.l{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.items{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    width: 1000px;
+}
+.item{
+    height: 400px;
+    width: 400px;
+}
+.item img{
+  height: 200px;
+  width: 200px;
+  border: solid;
+}
+.butn{
+    background-color: #FCDAB7;
+    border: solid white;
+    width: 150px;
+    height: 30px;
+}
+body{
+    margin: 0;
+    padding: 0;
+    background-color:  #334756 ;
+    font-family: "Cabin Sketch",cursive;
+}
+input{
+    height: 50px;
+    width: 400px;
+    margin: 20px;
+    padding: 10px;
+    margin-left: 650px;
+    border-radius: 20px;
+}
+button{
+    height: 50px;
+    width: 65px;
+    color: black;
+    background-color: #FCDAB7;
+}

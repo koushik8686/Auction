@@ -6,9 +6,9 @@
 body{
     padding: 0px;
     margin: 0px;
-   background-size: cover;
-   background-repeat: no-repeat;
+   background-color: #171717;
   overflow-x: hidden;
+  color: white;
 }
 @keyframes goaway {
   from{
@@ -34,28 +34,29 @@ body{
 .items {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
-    width: 100%;
+    margin-left: 19%;
+    gap: 10px;
+    width: 80%;
     height: 80%;
     margin-top: 100px;
-    margin-left: 100px;
 }
 .item {
     backdrop-filter: blur(1rem);
-    border: 0.1px solid;
-    height: 450px;
-    width: 400px;
+    height: 350px;
+    width: 250px;
     border-radius: 30px;
+    padding-bottom: 5px;
     padding: 20px; /* Added padding for better content spacing */
-    font-size: 17px;
+    font-size: 16px;
     font-family: cursive;
-    background-color: whitesmoke;
+    background-color: #333;
 }
 .item img {
-    height: 300px;
+    height: 50%;
     width: 100%; 
     border-radius: 15px; 
     object-fit:fill; 
+    /* border: solid white; */
 }
 .a{
     display: flex;
@@ -63,32 +64,35 @@ body{
     margin: 30px;
 }
 .b{
-    width: 70%;
+    width: 100%;
 }
-.c{
-    width: 30%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+
 .item:hover {
     transform: scale(1.03);
     transition: transform 0.3s ease-in-out;
 }
 
 .butn{
-    background-color: limegreen;
-    border: solid black;
-    height: 50px;
+  background-color: #5EFBD6;
+  height: 40px;
     width: 100px;
     border-radius: 20px;
 }
+
+.main{
+  display: flex;
+  width: 100%;
+}
 .left{
-    height: 100%;
-    width: 10%;
-    background-color: black;
-    border: solid white;
+    height: 100vh;
+    width: 15%;
+    position: fixed;
+    background-color: #444444;
     padding-top: 5rem;
+    margin-left: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 .navbtn{
     height: 100%;
@@ -117,6 +121,9 @@ body{
 .user{
   width: 30%;
   height: 100%;
+  font-family: "EB Garamond", serif;
+  font-optical-sizing: auto;
+  font-style: normal;
 }
 .logo{
   width: 20%;
@@ -128,15 +135,23 @@ body{
   font-size: 30px;
   cursor: pointer;
   display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
+  align-items: center;
+  justify-content: center;
   flex-wrap: wrap;
-  gap: 15px;
+  gap: 315px;
+}
+.sort{
+  font-size: 20px;
+  cursor: pointer;
+  margin: 20px;
 }
 .buttons a{
   color: white;
   text-decoration: none;
   margin: 0;
+  font-family: "EB Garamond", serif;
+  font-optical-sizing: auto;
+  font-style: normal;
   padding: 0;
 }
 .parallax a{
@@ -184,9 +199,6 @@ body{
     from{opacity: 0;}
     to{opacity: 1;}
   }
-  .sort{
-    color: red;
-  }
 .top img {
     height: 70%;
     background-color: white;
@@ -203,6 +215,11 @@ body{
   } to{
     margin-bottom: 0px;
   }
+}
+.sort{
+  font-family: "Madimi One", sans-serif;
+  font-weight: 400;
+  font-style: normal;
 }
 .comedown{
   animation: comedown 4s 1;

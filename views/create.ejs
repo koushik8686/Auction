@@ -5,21 +5,21 @@
     <meta name="viewpor2t" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-<link rel="stylesheet" type="text/css" href="/b.css">
+<link rel="stylesheet" type="text/css" href="/create.css">
 
 <body>
-    <h1 style="text-align: center;">create auction </h1>
-    <form action="/<%= k %>/create" method="POST">
-        <div class="l">
-            <input type="text" name="name"  class="in" placeholder="name of item">
-            <input type="text" class="in" name="link" placeholder="link of image">
-            <input type="number" class="in" name="price" placeholder="base price">
+    <form action="/<%= k %>/create" method="POST">    
+        <div class="login-box">
+            <h2 >Create Auction </h2>
+            <div class="user-box"> <input type="text" name="name"  class="in" placeholder="Name of item" required> </div>
+           <div class="user-box"> <input type="text" class="in" name="link" placeholder="Link of image" required> </div>
+           <div class="user-box"> <input type="number" class="in" name="price" placeholder="Base price" required> </div>
             <select name="type" class="in"> type
-                <option value="art">art</option>
-                <option value="antique">antique</option>
-                <option value="used">used</option>
+                <option value="art">Art</option>
+                <option value="antique">Antique</option>
+                <option value="used">Used</option>
             </select>
-            <button type="submit">create</button>
+            <button type="submit">Create</button>
         </div>
         </form>
 
