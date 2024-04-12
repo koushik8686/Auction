@@ -12,22 +12,21 @@
         color: black;
     }
      body{
-        
+        backdrop-filter: blur(5px);
         height: 600px;
-        background-image: url("art.jpg");
+        background-image: url(https://img.freepik.com/free-vector/abstract-dark-blue-vector-futuristic-digital-grid-background_53876-110562.jpg?size=626&ext=jpg&ga=GA1.1.2092140943.1701793667&semt=ais);
         background-position: center;
       background-repeat: no-repeat;
       background-size: cover;
       display: flex;
       align-items: center;
-      justify-content: right;
+      justify-content: center;
         }
         .heading{
             font-size: 60px;
-            color: black;
-            
+            color: white;
     font-family: cursive;
-    text-shadow: 2px 2px white; 
+    text-shadow: 2px 2px black; 
      }
     
     input{
@@ -39,29 +38,29 @@
 background: rgba(255, 255, 255, 0.18);
 border-radius: 16px;
 box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-
-border: 1px solid black;
+backdrop-filter: blur(10px);
+-webkit-backdrop-filter: blur(10px);
+border: 1px solid rgba(255, 255, 255, 0.3);
+color:  white;
  border-radius: 20px;
  margin-top: 10px;
  margin-bottom: 10px;
     }
     input::placeholder{
-        color: black;
+        color: white;
         font-size: large;
-        text-align: center;
     }
   .box{
     border: solid white;
     height: 80%;
     width: 30%;
-    margin-right: 220px;
     /* From https://css.glass */
 background: rgba(255, 255, 255, 0.19);
 border-radius: 16px;
 box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-
-border: 1px solid ;
-color: black;
+backdrop-filter: blur(6px);
+-webkit-backdrop-filter: blur(6px);
+border: 1px solid rgba(255, 255, 255, 0.3);
   }
   .l, form{
     height: 100%;
@@ -81,16 +80,16 @@ color: black;
 background: rgba(255, 255, 255, 0.77);
 border-radius: 16px;
 box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-
-border: 1px solid black;
+backdrop-filter: blur(13.7px);
+-webkit-backdrop-filter: blur(13.7px);
+border: 1px solid rgba(255, 255, 255, 0.61);
   }
     </style>
 <body>
     <div class="box">
-        <h1 class="heading" style="text-align: center;">login</h1>
-        <form class="for" method="post" action="/admin">
-           <div class="l"> 
-            <input class="in" name="email" type="text" placeholder="name">
+        <h1 class="heading" style="text-align: center;">Super User</h1>
+        <form class="for" method="post" action="/superUser/login">
+           <div class="l"> <input class="in" name="email" type="email" placeholder="email">
             <input class="in" type="text" placeholder="pass" name="pass" >
             <button class="btn" type="submit">login</button></div>
         </form>

@@ -14,45 +14,53 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Madimi+One&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="/home.css">
-
 <body>
-  <!-- <div id="po" class="parallax">Hexart</div> -->
-    <div id="navbar">
-      <div class="top" >
-        <div class="logo"></div>
-        <div class="buttons">
-          <a href="/items/<%= arr.id %>"> My Items </a>
-          <a style="color: red;" href="/seller">Start Selling </a>
-               </div>
-        <div class="user">    
-          <img src="https://cdn-icons-png.flaticon.com/128/848/848043.png" alt=""> <%= arr.user %> </div>
-       </div>
-       </div>
- <br>
- <div class="main">
-  <div class="left">
-    <div class="sort" id="4">All</div>
-    <div class="sort"id="1">Arts</div>
-    <div class="sort" id="2">Antiques</div>
-    <div class="sort" id="3">Used</div>
+  <div id="navbar">
+      <div class="top">
+          <div class="logo"></div>
+          <div class="buttons">
+              <a href="/items/<%= arr.id %>"> My Items </a>
+            
+              <a style="color: red;" href="/seller">Start Selling </a>
+          </div>
+          <div class="user">
+              <img src="https://cdn-icons-png.flaticon.com/128/848/848043.png" alt=""> <%= arr.user %> </div>
+      </div>
   </div>
-  <div id="cv" class="items">
-    <% for (let index = 0; index < arr.items.length; index++) { %>
-       <div class="<%= arr.items[index].class %> item ">
-        <img src=<%= arr.items[index].url %> alt="">
-    
-    <div class="b">
-        <p> Name: <%= arr.items[index].name %> </p>
-        <p> Posted By: <%= arr.items[index].person %> </p>
-        <p> Base Price: <%= arr.items[index].base_price %> </p>
-            </div>
-        <a href="/auction/<%= arr.id %>/item/<%= arr.items[index].id %> %>">
-            <button class="butn"> Go To Auction</button>
-           </a>
-       </div>
-   <% } %>
-</div>
- </div>
+  <br>
+
+  <div class="main">
+      <div class="left">
+          <div class="sort" id="4">All</div>
+          <div class="sort" id="1">Arts</div>
+          <div class="sort" id="2">Antiques</div>
+          <div class="sort" id="3">Used</div>
+          <div class="sort"><a style="color: white; text-decoration: none;" href="/logout">Log Out</a></div>
+          <!-- Search bar -->
+         
+      </div>
+      <div class="r">
+        <div class="searchbar">
+          <input type="text" id="searchInput" placeholder="Search...">
+          <button onclick="searchItems()">Search</button>
+          </div>
+      <div id="cv" class="items">
+          <% for (let index = 0; index < arr.items.length; index++) { %>
+              <div class="<%= arr.items[index].class %> item ">
+                  <img src=<%= arr.items[index].url %> alt="">
+                  <div class="b">
+                      <p> Name: <%= arr.items[index].name %> </p>
+                      <p> Posted By: <%= arr.items[index].person %> </p>
+                      <p> Base Price: <%= arr.items[index].base_price %> </p>
+                  </div>
+                  <a href="/auction/<%= arr.id %>/item/<%= arr.items[index].id %> %>">
+                      <button class="butn"> Go To Auction</button>
+                  </a>
+              </div>
+          <% } %>
+      </div>
+      </div>
+  </div>
 
 </body>
 </html>
@@ -123,4 +131,18 @@ setTimeout(() => {
   document.getElementById("po").style.display="none"
   document.getElementById("cv").classList.add("comeup")
   }, 3000);
+  function searchItems() {
+            var input, filter, items, itemName, i;
+            input = document.getElementById("searchInput");
+            filter = input.value.toLowerCase();
+            items = document.getElementsByClassName("item");
+            for (i = 0; i < items.length; i++) {
+                itemName = items[i].querySelector(".b").getElementsByTagName("p")[0].innerText.toLowerCase();
+                if (itemName.indexOf(filter) > -1) {
+                    items[i].style.display = "";
+                } else {
+                    items[i].style.display = "none";
+                }
+            }
+        }
 </script>

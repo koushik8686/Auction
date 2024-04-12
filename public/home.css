@@ -19,6 +19,20 @@ body{
   opacity: 0;
   }
 }
+.searchbar input{
+  margin-left: 20%;
+  width: 400px;
+  height: 50px;
+  border-radius: 24px;
+ margin-bottom: 10px;
+}
+.searchbar button {
+  width:100px;
+  height: 50px;
+  border-radius: 24px;
+ background-color: #5EFBD6;
+}
+
 .parallax {
   background-image: url(white.jpg);
   height: 100vh; 
@@ -34,16 +48,14 @@ body{
 .items {
     display: flex;
     flex-wrap: wrap;
-    margin-left: 19%;
     gap: 10px;
-    width: 80%;
-    height: 80%;
-    margin-top: 100px;
+    width: 100%;
+    height: 80%;;
 }
 .item {
     backdrop-filter: blur(1rem);
     height: 350px;
-    width: 250px;
+    width: 230px;
     border-radius: 30px;
     padding-bottom: 5px;
     padding: 20px; /* Added padding for better content spacing */
@@ -66,7 +78,11 @@ body{
 .b{
     width: 100%;
 }
-
+.r{
+  width: 100%;
+  margin-left: 19%;
+  margin-top: 80px
+}
 .item:hover {
     transform: scale(1.03);
     transition: transform 0.3s ease-in-out;

@@ -7,41 +7,49 @@
     <link rel="stylesheet" href="/admin.css">
 </head>
 <body>
-    <div class="main">
+    <div  class="main">
         <div class="sidebar">
             <div class="link">
                 <div class="l1">
                     <button id="1">users</button>
                     <button id="2">sellers</button>
                     <button id="3">items</button>
+                    <button id="4"><a style="color: white; text-decoration: none;" href="/admin/logout"> Log Out </a></button>
                 </div>
             </div>
         </div>
         <div class="right">
+            <p  ><%= data.admin.email %></p>
             <div class="info">
-                <h1>total no of users : <%= data.usersdata.length %></h1>
-                <h1>total no of sellers : <%= data.sellersdata.length %></h1>
-                <h1>total no of items : <%= data.itemsdata.length %></h1>
+                <p class="info">Total no of users : <%= data.usersdata.length %></p>
+                <p class="info">Total no of sellers : <%= data.sellersdata.length %></p>
+                <p class="info">Total no of items : <%= data.itemsdata.length %></p>
             </div>
-            <h2 id="in">users</h2>
+            <h2 class="info" id="in">Users</h2>
             <div class="users">
              <% for (let i = 0; i < data.usersdata.length; i++) { %>
                    <div class="user">
-                    <div class="username">name : <%= data.usersdata[i].email %></div>
-                    <div class="useritem">no of items : <%= data.usersdata[i].items.length %></div>
-                    <a href="delete/user/<%= data.usersdata[i]._id %>"><button id=<%= data.usersdata[i].email %> class="userdel" >delete</button></a>
-                   </div> 
+                    <div class="username">Name : <%= data.usersdata[i].email %></div>
+                    <div class="useritem">No of items : <%= data.usersdata[i].items.length %></div>
+                    <% if(data.admin.permissions.users_editing) { %>
+                    <a href="delete/user/<%= data.usersdata[i]._id %>"><button id=<%= data.usersdata[i].email %> class="userdel" >Delete</button></a>
+                  <%  }%>  
+                </div> 
                <% } %>
             </div>
             
             <div class="sellers ">
                 <% for (let i = 0; i < data.sellersdata.length; i++) { %>
                    <div class="seller">
-                    <div class="sellername">name : <%= data.sellersdata[i].name %></div>
-                    <div class="selleremail">email : <%= data.sellersdata[i].email %></div>
-                    <div class="selleremail">phone : <%= data.sellersdata[i].phone %></div>
-                    <div class="selleritem">no of items : <%= data.sellersdata[i].items.length %></div>
-                    <a href="delete/seller/<%= data.sellersdata[i]._id %>"><button id= <%= data.sellersdata[i].name  %> class="sellerdel">delete</button></a>  
+                    <div class="sellername">Name : <%= data.sellersdata[i].name %></div>
+                    <div class="selleremail">Email : <%= data.sellersdata[i].email %></div>
+                    <div class="selleremail">Phone : <%= data.sellersdata[i].phone %></div>
+                    <div class="selleritem">No of items : <%= data.sellersdata[i].items.length %></div>
+                    <% if(data.admin.permissions.seller_editing) { %>
+                        <a href="delete/seller/<%= data.sellersdata[i]._id %>">
+                            <button id="<%= data.sellersdata[i].name %>" class="sellerdel">delete</button>
+                        </a>  
+                    <% } %>
                 </div> 
                <% } %>
             </div>
@@ -56,8 +64,10 @@
                     <p> base price: <%= data.itemsdata[index].base_price %> </p>
                         </div>
                    <div class="c">
-                    <a href="delete/item/<%= data.itemsdata[index]._id %>"><button id=<%= data.itemsdata[index].name %>  class="itemdel" >delete</button></a>
-                   </div>
+                    <% if(data.admin.permissions.items_editing){ %>
+                    <a href="/delete/item/<%= data.itemsdata[index]._id %>/<%= data.admin._id %>"><button id=<%= data.itemsdata[index].name %>  class="itemdel" >delete</button></a>
+                 <%  }%> 
+                </div>
                    </div>
                    </div>
                <% } %>

@@ -2,6 +2,21 @@
     display: flex;
  height: 100vh;
  width: 100vw;
+background-color: #F1EAFF;
+}
+.l1{
+    display: flex;
+    flex-direction: column;
+}
+.link button {
+    height: 50px;
+    width: 100px;
+    background-color: #D0A2F7;
+    margin: 10px;
+    margin-left: 25px;
+    border: solid white;
+    border-radius: 20px;
+    color: white;
 }
 *{
     margin: 0;
@@ -11,45 +26,50 @@
 .sidebar{
  height: 100vh;
  width: 10%;
- background-color: orangered;
+ background-color: #DCBFFF;
 }
 .none{
     display: none;
 }
 .users{
     display: flex;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     width: 100%;
+    gap: 10px;
+    margin: 20px;
+}
+
+.user{
+    padding: 10px;
+    width: 45%;
+    height: 30%;
+    border: solid white;
+    border-radius: 12px;
+    background-color: #D0A2F7;
+    color: white;
 }
 .sellers{
     display: none;
     flex-wrap: nowrap;
     width: 100%;
 }
-
-.user{
-    width: 40%;
-    display: flex;
-    flex-direction: column;
-    height: 20%;
-    border: solid;
-    background-color: red;
-    color: white;
-}
-
 .seller{
-    width: 40%;
-    display: flex;
-    flex-direction: column;
-    height: 20%;
-    border: solid;
-    background-color: black;
-    color: white;
+        padding: 12px;
+        font-size: large;
+        width: 45%;
+        height: 30%;
+        border: solid white;
+        border-radius: 12px;
+        background-color: #D0A2F7;
+        color: white;
 }
 .right{
+    background-image: url(https://img.freepik.com/free-vector/elegant-purple-alcohol-ink-background_41066-1460.jpg?size=626&ext=jpg);
     width: 90%;
     height: 100vh;
     overflow-y: scroll;
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 .items {
     display: none;
@@ -62,8 +82,10 @@
 .item {
     backdrop-filter: blur(1rem);
     height: 450px;
-    width: 400px;
+    width: 350px;
+    background-color: #BEADFA;
     border-radius: 30px;
+    border: solid white;
     margin: 20px; /* Adjusted margin for better spacing */
     padding: 20px; /* Added padding for better content spacing */
     font-size: 17px;
@@ -90,22 +112,7 @@
     justify-content: center;
     align-items: center;
 }
-
-.black{
-    box-shadow: 4px 4px 30px 2px white;
-    color: white;
-    border: solid red;
-    background-color: black;
-}
-.blue{
-    box-shadow: 4px 4px 30px 2px blue;
-    color: white;
-    border: solid black;
-    background-color: blue;
-}
-.red{
-    box-shadow: 4px 4px 30px 2px red;
-    color: white;
-    border: solid yellow;
-    background-color: red;
+.info{
+    color: #483D8B;
+    font-size: 25px;
 }

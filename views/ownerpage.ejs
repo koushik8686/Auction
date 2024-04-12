@@ -5,20 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>selling page</title>
 </head>
-<link rel="stylesheet" type="text/css" href="/b.css">
+<link rel="stylesheet" type="text/css" href="/auctionpage.css">
 <body>
-    <h1><%= arr.username %></h1>
-     <h1> current bid :<%= arr.item.current_price %></h1>
-     <h2> base price :<%= arr.item.base_price %></h2>
-     <div class="<%= arr.item.class %>">
-      <img src="<%= arr.item.url %> " alt="">
-      <p> name: <%= arr.item.name %> </p>
-       <p>type : <%= arr.item.type %></p>
-      <p>current bidder : <%= arr.item.current_bidder %></p>
-     <form method="post" action="/sell/<%= arr.user %>/<%= arr.item._id %>">
-      <button type="submit"> sell
-      </button>
-    </form>
+    <div id="navbar">
+        <h1><%= arr.username %>  </h1>
+    </div>
+    <div class="box">
+        <p style="font-size: 25px; font-weight: bold; color: white;"> <%= arr.item.name %> </p>
+        <hr>
+        <div class="main">
+            <div class="image">
+                <img src=<%= arr.item.url %> alt="">
+            </div>
+            <div class="content">
+                <p class="bid"> Current bid : <%= arr.item.current_price %></p>
+                <p class="bid"> Base price : <%= arr.item.base_price %></p>       
+                <p class="data">Owner : <%= arr.item.person %></p>
+                <p class="data">Type : <%= arr.item.type %></p>
+                <p class="data">Current bidder : <%= arr.item.current_bidder %></p>
+            </div>
+        </div>
+        <div class="form">
+            <form method="post" action="/sell/<%= arr.user %>/<%= arr.item._id %>">
+                <button style="margin-left: 700px;" type="submit"> sell
+                </button>
+              </form>
+        </div>
     </div>
 </body>
 </html>
+
+

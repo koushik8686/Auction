@@ -4,11 +4,12 @@ const {itemmodel} = require("../../models/itemmodel")
 
 async function deleteitem(req, res) 
 { 
+  console.log(req.params);
 console.log("deleting item");
     switch (req.params.type) {
       case "user":
         await usermodel.findByIdAndDelete(req.params.id);
-        res.redirect("/adminpage")
+        res.redirect("/admin/home/"+ req.params.admin);
         break;
       case "seller":
       await sellermodel.findOne({_id:req.params.id}).then(async(arr)=>{
@@ -17,11 +18,11 @@ console.log("deleting item");
         }
       })  
       await sellermodel.findByIdAndDelete(req.params.id);
-        res.redirect("/adminpage")
-        break;
+      res.redirect("/admin/home/"+ req.params.admin);
+      break;
       case "item":
         const itemId = req.params.id;
-  
+         console.log(itemId);
         // Find the item by ID and get the seller ID (arr.pid)
         const item = await itemmodel.findOne({ _id: itemId });
         if (!item) {
@@ -36,9 +37,10 @@ console.log("deleting item");
           { $pull: { items: { _id: itemId } } },
           { new: true }
         );
+
         await itemmodel.findByIdAndDelete(itemId);
-    
-        res.redirect("/adminpage")
+//  res.send(req.params)
+        res.redirect("/admin/home/"+ req.params.admin);
         break;
       default:
         break;

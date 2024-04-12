@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<style>
+    #cv {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.items {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.item {
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+  width: 30%;
+}
+
+@media only screen and (max-width: 768px) {
+  .item {
+    width: 100%;
+  }
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+input[type="checkbox"] {
+  margin-right: 5px;
+}
+
+button[type="submit"] {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 13px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+.button {
+  position: relative;
+  overflow: hidden;
+  height: 3rem;
+  padding: 0 2rem;
+  border-radius: 1.5rem;
+  background: #3d3a4e;
+  background-size: 400%;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.button:hover::before {
+  transform: scaleX(1);
+}
+
+.button-content {
+  position: relative;
+  z-index: 1;
+}
+
+.button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  width: 100%;
+  height: inherit;
+  border-radius: inherit;
+  background: linear-gradient(
+    82.3deg,
+    rgba(150, 93, 233, 1) 10.8%,
+    rgba(99, 88, 238, 1) 94.3%
+  );
+  transition: all 0.475s;
+}
+
+</style>
+
+<body>
+    <a style=" margin-top: 30px; margin-bottom: 30px; margin-left: 700px;" href="/admincreate">
+        <button class="button">   <span class="button-content"> Create Admin </span>
+        </button>
+    </a>
+    <div style="margin-top: 10px;" id="cv" class="items">
+        <% for (let index = 0; index < admins.length; index++) { %>
+           <div class="item "> 
+            <p> Name: <%= admins[index].email %> </p>
+         <p>permissions :</p>
+         
+                <form action="/changepermissions/<%= admins[index]._id %>" method="post">
+                    <label>
+                    <% if (admins[index].permissions.users_editing==true) { %>
+                    <input name="user" type="checkbox"  checked>
+                <% } else { %>
+                    <input name="user" type="checkbox">
+                <% } %>
+                User Editing
+            </label>
+                    <label>
+                    <% if (admins[index].permissions.items_editing==true) { %>
+                    <input name="item" type="checkbox"  checked>
+                <% } else { %>
+                    <input name="item" type="checkbox">
+                <% } %>
+                Item Editing
+            </label>
+                    <label>
+                    <% if (admins[index].permissions.seller_editing==true) { %>
+                    <input name="seller" type="checkbox"  checked>
+                <% } else { %>
+                    <input name="seller" type="checkbox">
+                <% } %>
+                Seller Editing
+            </label>
+         <label>
+                    <input name="view" type="checkbox"  onclick="return false" checked ">
+                Viewing
+        </label>
+   <button type="submit"> change </button>
+    </form>
+    </div>
+       <% } %>
+    </div>
+</body>
+</html>

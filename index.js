@@ -1,12 +1,27 @@
 const mongoose = require("mongoose");
 const express = require("express");
 const bodyParser = require("body-parser");
+const adminmodel = require("./models/adminmodel")
+const session = require("express-session");
+const cookieParser = require("cookie-parser");
 const app = express();
 app.set('view engine', 'ejs');
 // app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 const { MongoClient, ServerApiVersion } = require('mongodb');
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(cookieParser());
+app.use(
+  session({
+    secret: "secretkey",
+    resave: true,
+    saveUninitialized: true,
+    cookie: {  maxAge: 12000000 }, 
+  })
+);
+
 // mongoose.connect("mongodb+srv://koushik:koushik@cluster0.h2lzgvs.mongodb.net/projectv2");
 // mongoose.connect("mongodb+srv://koushik:koushik@cluster0.h2lzgvs.mongodb.net/fsd-project");
  mongoose.connect("mongodb://127.0.0.1:27017/project");
@@ -24,6 +39,7 @@ app.use("/login",require("./routers/user-routes/user_login"))
 app.use("/user", require("./routers/user-routes/user_home") )
 app.use("/items", require("./routers/user-routes/user_items") ) // route for individual user items
 app.use("/auction", require("./routers/user-routes/user_auctionpage")) //auction page for users
+app.use("/logout", require("./routers/user-routes/delete_session"))
 
 //seller routes
 app.get("/seller", function (req, res) {  res.sendFile(__dirname+"/views/sellerintro.html")})
@@ -35,5 +51,12 @@ app.use("/sell",require("./routers/seller-routes/sell_item")) //route for owner 
 
 //admin 
 app.use("/admin",require("./routers/admin-routes/admin_login"))
-app.use("/adminpage",require("./routers/admin-routes/admin_home"))
-app.use("/delete/:type/:id" ,require("./routers/admin-routes/deleteitem") )
+app.use("/admin/home",require("./routers/admin-routes/admin_home"))
+app.use("/admin/logout", require("./routers/admin-routes/delete_session_admin"))
+app.use("/delete" ,require("./routers/admin-routes/deleteitem") )
+
+//super-user
+app.use("/superUser/login" , require("./routers/super-user-routes/super_user_login"))
+app.use("/admincreate",require("./routers/super-user-routes/admin_create_route") )
+app.use("/superUser/home", require("./routers/super-user-routes/superuser-home") )
+app.use("/changepermissions",require("./routers/super-user-routes/changepermission"));

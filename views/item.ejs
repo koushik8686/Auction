@@ -1,23 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>items</title>
-</head>
-<link rel="stylesheet" type="text/css" href="/b.css">
-<body>
-   <h1>items of <%= arr.email %></h1>
-    <a href="/user/<%= arr.id %>">home</a>
-    <div class="items">
-        <% for (let index = 0; index < arr.items.length; index++) { %>
-           <div class="<%= arr.items[index].class %> item">
-            <img src=<%= arr.items[index].url %> alt="">
-            <p> <%= arr.items[index].name %> </p>
-            <p> <%= arr.items[index].base_price %> </p>
-            <p> <%= arr.items[index].date %> </p>
-           </div>
-       <% } %>
-    </div>
-</body>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Items</title>
+		<style>
+			/* Reset default margin and padding */
+			body,
+			h1,
+			p,
+			ul {
+				margin: 0;
+				padding: 0;
+			}
+
+			/* Set font family */
+			body {
+				font-family: Arial, sans-serif;
+				background-color: #f7f7f7; /* Light gray background */
+				color: #333; /* Dark gray text color */
+				line-height: 1.6; /* Line height for better readability */
+			}
+
+			/* Container styles */
+			.container {
+				max-width: 1300px;
+				margin: 20px auto;
+				padding: 20px;
+				background-color: #fff; /* White background color */
+				border-radius: 5px; /* Add some rounded corners */
+				box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle shadow for depth */
+			}
+
+			/* Heading styles */
+			h1 {
+				font-size: 24px;
+				margin-bottom: 20px;
+				text-align: center;
+			}
+
+			/* Link styles */
+			a {
+				color: #007bff; /* Blue link color */
+				text-decoration: none;
+				display: block;
+				margin-bottom: 20px;
+				text-align: center;
+			}
+
+			/* Item container styles */
+			.items {
+				display: flex;
+				flex-wrap: wrap;
+				justify-content: space-between;
+			}
+
+			/* Individual item styles */
+			.item {
+				width: 400px;
+				margin-bottom: 20px;
+				background-color: #f2f2f2; /* Light gray background */
+				padding: 10px;
+				border-radius: 5px;
+				box-sizing: border-box;
+				transition: background-color 0.3s; /* Smooth transition for hover effect */
+			}
+
+			.item:hover {
+				background-color: #e0e0e0; /* Darker gray background on hover */
+			}
+
+			/* Image styles */
+			.item img {
+				width: 100%;
+				height: 300px;
+				border-radius: 5px;
+			}
+
+			/* Text styles */
+			.item p {
+				margin-bottom: 5px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<h1>Items of <%= arr.email %></h1>
+			<a href="/user/<%= arr.id %>">Home</a>
+			<div class="items">
+				<% for (let index = 0; index < arr.items.length; index++) { %>
+				<div class="item">
+					<img src="<%= arr.items[index].url %>" alt="" />
+					<p><%= arr.items[index].name %></p>
+					<p>Base Price: <%= arr.items[index].base_price %></p>
+				</div>
+				<% } %>
+			</div>
+		</div>
+	</body>
 </html>

@@ -1,9 +1,13 @@
 const sellermodel =  require("../../models/sellermodel")
 const {itemmodel} =  require("../../models/itemmodel")
+const {set_sellersession, get_sellersession } = require("../../middleware/seller-sessions/sellerauth")
 
 const path = require("path");
 
 function sellerlogin_get(req, res) { 
+  if (get_sellersession(req)) {
+    return res.redirect("/sellerhome/"+get_sellersession(req));
+   }
     res.sendFile(path.join(__dirname, "../../views/sellerlogin.html"));
 }
 function sellerlogin_post(req, res) { 
@@ -21,7 +25,8 @@ function sellerlogin_post(req, res) {
             return
         }    
         if (item.password==pass) {
-    var t= item._id
+    var seller_id= item._id
+    set_sellersession(req, seller_id); // Set the session with the user ID
            res.redirect("/sellerhome/"+item._id)
         } else {
           res.send("wrong pass")
