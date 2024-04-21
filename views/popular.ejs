@@ -20,7 +20,7 @@
           <div class="logo"></div>
           <div class="buttons">
               <a href="/items/<%= arr.id %>"> My Items </a>
-              <a href="/popular/<%= arr.id %>"> Popular Items </a>
+              <a href="/user/<%= arr.id %>"> Home </a>
               <a style="color: red;" href="/seller">Start Selling </a>
           </div>
           <div class="user">
@@ -28,7 +28,6 @@
       </div>
   </div>
   <br>
-
   <div class="main">
       <div class="left">
           <div class="sort" id="4">All</div>
@@ -44,22 +43,23 @@
           <input type="text" id="searchInput" placeholder="Search...">
           <button onclick="searchItems()">Search</button>
           </div>
-      <div id="cv" class="items">
-          <% for (let index = 0; index < arr.items.length; index++) { %>
-              <div class="<%= arr.items[index].class %> item ">
-                  <img src=<%= arr.items[index].url %> alt="">
-                  <div class="b">
-                      <p> Name: <%= arr.items[index].name %> </p>
-                      <p> Posted By: <%= arr.items[index].person %> </p>
-                      <p> Base Price: <%= arr.items[index].base_price %> </p>
-                  </div>
-                  <a href="/auction/<%= arr.id %>/item/<%= arr.items[index].id %> %>">
-                      <button class="butn"> Go To Auction</button>
-                  </a>
-              </div>
-          <% } %>
-      </div>
-      </div>
+          <div id="cv" class="items">
+            <% for (let index = 0; index < arr.items.length; index++) { %>
+                <div class="<%= arr.items[index].class %> item ">
+                    <img src="<%= arr.items[index].url %>" alt="">
+                    <div class="b">
+                        <p>Name: <%= arr.items[index].name %></p>
+                        <p>Posted By: <%= arr.items[index].person %></p>
+                        <p>Base Price: <%= arr.items[index].base_price %></p>
+                        <p>Visited Users Count: <%= arr.items[index].visited_users.length %></p>
+                    </div>
+                    <a href="/auction/<%= arr.id %>/item/<%= arr.items[index]._id %>">
+                        <button class="butn">Go To Auction</button>
+                    </a>
+                </div>
+            <% } %>
+        </div>
+        
   </div>
 
 </body>

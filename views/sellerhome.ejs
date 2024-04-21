@@ -9,7 +9,7 @@
 <body>
     <div class="top">
     <h1> <%= arr.name %> </h1>
-    <a href="/<%= arr._id%>/create"><button> create auction</button></a>
+    <a href="/create/<%= arr._id%>"><button> create auction</button></a>
     </div>    
     <div class="items">
             <% for (let index = 0; index < arr.items.length; index++) { %>

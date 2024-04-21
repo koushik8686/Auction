@@ -18,7 +18,7 @@ app.use(
     secret: "secretkey",
     resave: true,
     saveUninitialized: true,
-    cookie: {  maxAge: 12000000 }, 
+    cookie: {  maxAge: null }, 
   })
 );
 
@@ -37,6 +37,7 @@ app.get("/", function (req, res) {  res.sendFile(__dirname+"/views/intro.html")}
 app.use("/register", require("./routers/user-routes/user_register"))
 app.use("/login",require("./routers/user-routes/user_login"))
 app.use("/user", require("./routers/user-routes/user_home") )
+app.use("/popular", require("./routers/user-routes/popular") )
 app.use("/items", require("./routers/user-routes/user_items") ) // route for individual user items
 app.use("/auction", require("./routers/user-routes/user_auctionpage")) //auction page for users
 app.use("/logout", require("./routers/user-routes/delete_session"))
@@ -46,7 +47,7 @@ app.get("/seller", function (req, res) {  res.sendFile(__dirname+"/views/selleri
 app.use("/sellerregister", require("./routers/seller-routes/seller_register") )
 app.use("/sellerlogin",require("./routers/seller-routes/seller_login") )
 app.use("/sellerhome",require("./routers/seller-routes/seller_home"))
-app.use("/:seller/create", require("./routers/seller-routes/create_auction") )
+app.use("/create", require("./routers/seller-routes/create_auction") )
 app.use("/sell",require("./routers/seller-routes/sell_item")) //route for owner of the item
 
 //admin 

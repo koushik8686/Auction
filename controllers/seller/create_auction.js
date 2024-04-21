@@ -11,7 +11,7 @@ function createauction_post(req, res) {
     sellermodel.find().then((arr) => {
         for (let index = 0; index < arr.length; index++) {
             console.log(arr[index]._id, req.params.name, arr[index].email);
-            if (arr[index]._id == req.params.sellerid) {
+            if (arr[index]._id == req.params.seller) {
                 console.log("ok");
                 nam = arr[index].name;
                 var classs =""
@@ -31,7 +31,7 @@ function createauction_post(req, res) {
                 const item = new itemmodel({
                     name: req.body.name,
                     person: nam,
-                    pid: req.params.sellerid,
+                    pid: req.params.seller,
                     url: req.body.link,
                     base_price: req.body.price,
                   type:req.body.type,
@@ -39,11 +39,13 @@ function createauction_post(req, res) {
                   current_bidder:" ",
                   current_bidder_id:" ",
                   class:classs,
-                  aution_active:false
+                  aution_over:false,
+                  visited_users:[],
+                  auction_history: []
                   });
                 console.log(item)
                 item.save()
-                sellermodel.findOne({ _id: req.params.sellerid })
+                sellermodel.findOne({ _id: req.params.seller })
                 .then((user) => {
                   if (user) {
                     // User found, update the items array
@@ -62,6 +64,6 @@ function createauction_post(req, res) {
     }).catch((error) => {
         // console.error("Error:", error);
     });
-  res.redirect("/seller/"+req.params.sellerid) }
+  res.redirect("/sellerhome/"+req.params.seller) }
 
 module.exports = {createauction_get , createauction_post}

@@ -1,4 +1,5 @@
 const mongoose= require('mongoose')
+mongoose.connect("mongodb://127.0.0.1:27017/project");
 
 const itemschema= mongoose.Schema({
     name:String,
@@ -11,8 +12,11 @@ const itemschema= mongoose.Schema({
     current_price:String,
     type:String,
     class:String, 
-    aution_active:Boolean
+    aution_active:Boolean,
+    visited_users:[{id:String ,email:String}],
+    auction_history: [{bidder: String,price: String}]
   })
+
 
 const itemmodel = mongoose.model("items", itemschema)
 

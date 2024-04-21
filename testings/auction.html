@@ -1,4 +1,6 @@
 
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,84 +8,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>auction</title>
 </head>
-<style>
-    .box{
-    border: solid;
-}
 
-.in{
-    display: inline;
-    height: 50px;
-    width: 200px;
-    border: solid;
-    border-radius: 20px;
-}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="../public/auctionpage.css">
 
-.l{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.items{
-    display: flex;
-    flex-direction: row;
-    gap: 20px;
-    width: 1000px;
-}
-.item{
-    height: 400px;
-    width: 400px;
-}
-.a{
-    display: flex;
-    gap: 10%;
-}
-img{
-    width: 30%;
-}
-.right{
-    width: 60%;
-}
-.butn{
-    background-color: limegreen;
-    border: solid white;
-    width: 150px;
-    height: 30px;
-}
-.content{
-    border: solid;
-  border-radius: 35px;
-  padding: 15px;
-}
-body{
-    padding: 15px;
-}
-</style>
-<link rel="stylesheet" type="text/css" href="/b.css">
 <body>
-    <h1>koushik@2</h1>
-    <div class="content">
-        <div class="a">
-          <img src="data:image/jpeg;base64,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 " alt="">
-<div class="right">
-      
-     <h1> current bid :150000</h1>
-     <h2> base price :65000</h2>
-     <div class="red">
-      <p> name: car </p>
-      <p>owner :seller1</p>
-      <p>type : used</p>
-      <p>current bidder : koushik@2</p>
+    <div id="navbar">
+    <h1>pinnukoushikp@gmail.com  </h1>
     </div>
+    <div class="outerbox">
+    <div class="left">
+    <h3 style="text-decoration: underline;" >Auction History</h3>
+    <hr>
+    <div class="history">
+        <p>user: Koushik</p>
+        <p>price :300000</p>
+        <hr>
     </div>
+  
     </div>
-    <form method="post" action="/65ba67a8cd44ee1d86baed94/auction/item/65ccb8ea27d77ec807812af5">
-        <input type="number" name="bid" placeholder="enter bid" id="">
-        <button type="submit"> bid
-        </button>
-      </form>
+    <div class="box">
+        <p style="font-size: 25px; font-weight: bold; color: white; " > house </p>
+        <hr>
+        <div class="main">
+        <div class="image"> <img src=https://plus.unsplash.com/premium_photo-1676637000058-96549206fe71?w=500&amp;auto=format&amp;fit=crop&amp;q=60&amp;ixlib=rb-4.0.3&amp;ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW1hZ2V8ZW58MHx8MHx8fDA%3D alt=""></div>
+        <div class="content">
+            <p class="bid" > Current bid :750000</p>
+            <p class="bid" > Base price :500000</p>       
+            <p class="data" >Owner :seller2</p>
+            <p class="data">Type :art</p>
+            <p class="data">Current bidder : pinnukoushikp@gmail.com</p>
+        </div>
+        </div>
+        <div class="form">
+            <form method="post" action="/auction/6619904263a274eaab24d079/item/661996a228b7069363e7d971" >
+                <input type="number" name="bid" placeholder="enter bid" id="">
+                <button type="submit"> Bid
+                </button>
+              </form>
+        </div>
     </div>
+   </div>
+   
 </body>
 </html>
