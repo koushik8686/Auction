@@ -11,7 +11,6 @@ function adminlogin_get(req, res) {
 function adminlogin_post (req, res) { 
   var email = req.body.email
   var pass = req.body.pass
-  console.log(email, pass);
   adminmodels.find().then((arr) => {
     var admin;
     for (let index = 0; index < arr.length; index++) {

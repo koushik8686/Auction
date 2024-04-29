@@ -31,13 +31,11 @@ async function render_auctionpage(req, res) {
       username:name,
       item:result
      }
-     console.log(data.item);
       res.render("auctionpage",{arr:data} )
      })
    }
 
  async function bid (req, res) { 
-    console.log("heere")
     var price=0
      price =Number(req. body.bid)
     var name = " "
@@ -50,8 +48,6 @@ async function render_auctionpage(req, res) {
         return
       }
     if (price<result.current_price||price<result.base_price) {
-   console.log(price, typeof(price));
-      console.log("/"+req.params.userid+"/auction/item/"+req.params.itemid)    
       res.redirect("/auction/"+req.params.userid+"/item/"+req.params.itemid)
     }else{
       itemmodel.findOne({_id:req.params.itemid}).then((result)=>{

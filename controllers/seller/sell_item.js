@@ -42,7 +42,6 @@ async function sellingpage_post(req, res) {
      }
          result.person=result.current_bidder
          result.save()
-         console.log("after", result)
          solditem=result
    //deleting in owner
         await sellermodel.findOneAndUpdate(
@@ -55,9 +54,7 @@ async function sellingpage_post(req, res) {
          phone=result.phone
         })
     //adding in buyer
-    console.log("sold",solditem)
     var buyer = result.current_bidder_id
-    console.log(buyer)
    await usermodel.findOne({_id:buyer}).then ((user)=>{
     var mailOptions = {
       from: email,
@@ -74,10 +71,8 @@ async function sellingpage_post(req, res) {
       if (error) {
         console.log(error);
       } else {
-        console.log('Email sent: ' + info.response);
       }
     });  
-     console.log(user)
       var itemlength = user.items.length
       user.items[itemlength]=solditem
       user.save()

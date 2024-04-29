@@ -17,7 +17,6 @@ function admincreate_post  (req, res){
       }
           })
     a.save()
-    console.log(a)
     res.redirect("/superUser/home")
   }
 
