@@ -7,9 +7,24 @@
 </head>
 <link rel="stylesheet" type="text/css" href="/auctionpage.css">
 <body>
+
+    
     <div id="navbar">
         <h1><%= arr.username %>  </h1>
     </div>
+    <div class="outerbox">
+        <div class="left">
+            <h3 style="text-decoration: underline;" >Auction History</h3>
+            <hr>
+            <% for (let i = arr.item.auction_history.length-1; i >= 0 ; i--) { %>
+                <div class="history">
+                    <p>bidder: <%= arr.item.auction_history[i].bidder %></p>
+                    <p>price :<%= arr.item.auction_history[i].price %></p>
+                    <hr>
+                </div>
+           <% } %>
+           
+        </div>
     <div class="box">
         <p style="font-size: 25px; font-weight: bold; color: white;"> <%= arr.item.name %> </p>
         <hr>
@@ -31,6 +46,7 @@
                 </button>
               </form>
         </div>
+    </div>
     </div>
 </body>
 </html>

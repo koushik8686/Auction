@@ -1,7 +1,7 @@
 #navbar{
     display: flex;
-    flex-direction: column;
-   background-color: #082032 ;
+justify-content: space-between;
+    background-color: #082032 ;
    color: #F0F3FF;
    align-items: end;
 }
@@ -18,6 +18,16 @@
     gap: 40px;
     font-size: 20px;
     
+}
+.previous{
+    text-align: center;
+    font-size: 60px;
+    margin-left: 20px;
+    text-decoration: none;
+    color: white;
+}
+.previous:hover{
+    background-color: black;
 }
 .bid{
     color: red;

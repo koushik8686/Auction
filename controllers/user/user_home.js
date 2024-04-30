@@ -1,6 +1,5 @@
 const usermodel =  require("../../models/usermodel")
 const {itemmodel} =  require("../../models/itemmodel")
-const {set_session , get_session} = require("../../middleware/user-cookies/userauth")
 
 async function render_user_home (req, res) { 
     var name = " "

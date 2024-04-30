@@ -21,16 +21,15 @@ app.use(
     cookie: {  maxAge: null }, 
   })
 );
-
-// mongoose.connect("mongodb+srv://koushik:koushik@cluster0.h2lzgvs.mongodb.net/projectv2");
-// mongoose.connect("mongodb+srv://koushik:koushik@cluster0.h2lzgvs.mongodb.net/fsd-project");
- mongoose.connect("mongodb://127.0.0.1:27017/project");
+mongoose.connect("mongodb+srv://koushik:koushik@cluster0.h2lzgvs.mongodb.net/fsd-project");
 //models 
 const usermodel = require("./models/usermodel")
 const {itemmodel} = require("./models/itemmodel")
 const sellermodel = require("./models/sellermodel")
 
 app.listen(3000, function (param) {  })
+
+
 
 //user routes
 app.get("/", function (req, res) {  res.sendFile(__dirname+"/views/intro.html")})

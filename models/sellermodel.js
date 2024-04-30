@@ -7,8 +7,8 @@ const sellerschema = mongoose.Schema({
     phone :String,
     password:String,
     items:[itemschema],
-    isremoved :Boolean
   })
-  const sellermodel = mongoose.model("sellers", sellerschema)
+
+const sellermodel = mongoose.model("sellers", sellerschema)
   
   module.exports=sellermodel

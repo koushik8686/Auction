@@ -11,27 +11,30 @@ function sellerlogin_get(req, res) {
     res.sendFile(path.join(__dirname, "../../views/sellerlogin.html"));
 }
 function sellerlogin_post(req, res) { 
-    var email = req.body.email
-    var pass = req.body.pass
-    sellermodel.find().then((arr)=>{
-        var item
-        for (let index = 0; index < arr.length; index++) {
-          if (arr[index].password==pass&&arr[index].email==email) {
-            item=arr[index]
-          }
-        }
-        if (item===undefined) {
-            res.redirect("/sellerregister")
-            return
-        }    
-        if (item.password==pass) {
-    var seller_id= item._id
-    set_sellersession(req, seller_id); // Set the session with the user ID
-           res.redirect("/sellerhome/"+item._id)
-        } else {
-          res.send("wrong pass")
-        }
-    })
-   }
+  var email = req.body.email;
+  var pass = req.body.pass;
+
+  // Find the seller with the provided email
+  sellermodel.findOne({ email: email }).then((seller) => {
+      if (!seller) {
+          // If no seller is found with the provided email, redirect to seller registration page
+          return res.redirect("/sellerregister");
+      }
+
+      // Check if the provided password matches the seller's password
+      if (seller.password !== pass) {
+          // If the passwords don't match, send a response indicating wrong password
+          return res.send("Wrong password. Please try again.");
+      }
+      set_sellersession(req, seller._id);
+
+      // Redirect to the seller's home page
+      res.redirect("/sellerhome/" + seller._id);
+  }).catch((error) => {
+      console.error("Error finding seller:", error);
+      res.status(500).send("Internal Server Error");
+  });
+}
+
 
 module.exports = {sellerlogin_get, sellerlogin_post}

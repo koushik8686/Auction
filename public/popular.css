@@ -1,0 +1,233 @@
+
+.border{
+    border-bottom: solid 4px white;
+  }
+  
+  body{
+      padding: 0px;
+      margin: 0px;
+     background-color: #171717;
+    overflow-x: hidden;
+    color: white;
+  }
+
+  .searchbar input{
+    margin-left: 20%;
+    width: 400px;
+    height: 50px;
+    border-radius: 24px;
+   margin-bottom: 10px;
+  }
+  .searchbar button {
+    width:100px;
+    height: 50px;
+    border-radius: 24px;
+   background-color: #5EFBD6;
+  }
+  
+  .parallax {
+    background-image: url(white.jpg);
+    height: 100vh; 
+    background-repeat: no-repeat;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.8);
+    background-size: cover;
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: goaway 3s 1;
+  }
+  .items {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      width: 100%;
+      height: 80%;;
+  }
+  .item {
+      backdrop-filter: blur(1rem);
+      height: 450px;
+      width: 230px;
+      border-radius: 30px;
+      padding-bottom: 5px;
+      padding: 20px; /* Added padding for better content spacing */
+      font-size: 16px;
+      font-family: cursive;
+      background-color: #333;
+  }
+  .item img {
+      height: 50%;
+      width: 100%; 
+      border-radius: 15px; 
+      object-fit:fill; 
+      /* border: solid white; */
+  }
+  .a{
+      display: flex;
+      flex-direction: row;
+      margin: 30px;
+  }
+  .b{
+      width: 100%;
+  }
+  .r{
+    width: 100%;
+    margin-left: 19%;
+    margin-top: 80px
+  }
+  .item:hover {
+      transform: scale(1.03);
+      transition: transform 0.3s ease-in-out;
+  }
+  
+  .butn{
+    background-color: #5EFBD6;
+    height: 40px;
+      width: 100px;
+      border-radius: 20px;
+  }
+  
+  .main{
+    display: flex;
+    width: 100%;
+  }
+  .left{
+      height: 100vh;
+      width: 15%;
+      position: fixed;
+      background-color: #444444;
+      padding-top: 5rem;
+      margin-left: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+  }
+  .navbtn{
+      height: 100%;
+      width: 4%;
+     margin-right: 35%;
+  }
+  #navbar{
+      display: flex;
+      flex-direction: column;
+      z-index: 2;
+     position: fixed;
+     transition: background-color 0.3s ease;
+     background-color: black;
+     z-index: 1;
+  }
+  .top{
+      color: white;
+      height:70px;
+      margin: 0px;
+      display: flex;
+      padding-right: 20px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-size: 30px;
+      width: 100vw;
+  }
+  .user{
+    width: 30%;
+    height: 100%;
+    font-family: "EB Garamond", serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+  }
+  
+  .buttons{
+    height: 100%;
+    width: 70%;
+    font-size: 30px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 215px;
+  }
+  .sort{
+    font-size: 20px;
+    cursor: pointer;
+    margin: 20px;
+  }
+  .buttons a{
+    color: white;
+    text-decoration: none;
+    margin: 0;
+    font-family: "EB Garamond", serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    padding: 0;
+  }
+  .parallax a{
+    color: white;
+    text-decoration: none;
+    margin: 0;
+    font-size: 30px;
+    padding: 0;
+  }
+  .total{
+      width: 100%;
+      height: 90%;
+      display: flex;
+  }
+  .sticky {
+      position: fixed;
+      top: 0;
+      width: 100%; 
+  }
+  .btn{
+    border: solid;
+    height: 50px;
+    width: 250px;
+    border-radius: 20px;
+    backdrop-filter: blur(1rem);
+  }
+  .anim{
+      animation: anim 1s 1 ;
+    }
+    .x{
+      display: flex;
+      flex-direction: row;
+    }
+   
+  .top img {
+      height: 70%;
+      background-color: white;
+      border-radius: 50%;
+      margin-right: 20px;
+      box-shadow: 4px 4px 30px 2px white;
+  }
+  .none{
+      display: none;
+  }
+  @keyframes comedown {
+    from{
+      margin-bottom: 500px;
+    } to{
+      margin-bottom: 0px;
+    }
+  }
+  .sort{
+    font-family: "Madimi One", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+  .comedown{
+    animation: comedown 4s 1;
+  }
+  .comeup{
+    animation: comeup 4s 1;
+  }
+  @keyframes comeup {
+    from{
+      margin-top: 1000px;
+    } to{
+      margin-top: 100px;
+    }
+  }
+  .user{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }

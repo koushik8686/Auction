@@ -51,6 +51,7 @@ background-color: #F1EAFF;
 .sellers{
     display: none;
     flex-wrap: nowrap;
+    flex-direction: column;
     width: 100%;
 }
 .seller{

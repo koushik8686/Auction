@@ -19,8 +19,8 @@ async function sellingpage_get(req, res) {
      name=result.name
     })
    await itemmodel.findOne({_id:req.params.itemid}).then((result)=>{
-    if (result===undefined) {
-      res.send("item no  more for auction")
+    if (!result) {
+      res.send("item sold")
       return
     }
       if (result.aution_active) {

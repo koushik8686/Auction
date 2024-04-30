@@ -8,15 +8,19 @@
 </head>
 <body>
     <div class="top">
-    <h1> <%= arr.name %> </h1>
-    <a href="/create/<%= arr._id%>"><button> create auction</button></a>
+    <h1> <%= seller.name %> </h1>
+    <div style="display: flex ;  margin-left: 43vw; gap: 20px; " class="links">
+    <a href="/"><button> Home </button></a>
+    <a href="/create/<%= seller._id%>"><button> create auction</button></a>
     </div>    
+    </div>
     <div class="items">
-            <% for (let index = 0; index < arr.items.length; index++) { %>
-               <div class="<%= arr.items[index].class %> item">
-                <img src=<%= arr.items[index].url %> alt="">
-            <div class="content"> <p> <%= arr.items[index].name %> </p> </div>
-                <a href="/sell/<%= seller %>/<%= arr.items[index]._id %>">
+            <% for (let index = 0; index < items.length; index++) { %>
+               <div class="<%= items[index].class %> item">
+                <img src=<%= items[index].url %> alt="">
+            <div class="content"> <p> Current price : <%= items[index].current_price %> </p> </div>
+            <div class="content"> <p> <%= items[index].name %> </p> </div>
+                <a href="/sell/<%= seller._id %>/<%= items[index]._id %>">
                  <button class="butn"> details </button>
                 </a>
                </div>

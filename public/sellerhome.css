@@ -69,15 +69,17 @@ h1{
     border-radius: 10px 10px 0 0;
 }
 
-.item .content {
-    padding: 20px;
+.item  {
+    padding: 10px;
 }
 
 .item h2 {
     margin: 0;
     font-size: 1.5rem;
 }
-
+.content{
+    padding: 5px;
+}
 .top{
     background-color: black;
     color: white;
@@ -112,7 +114,9 @@ h1{
     border-radius: 3px;
     cursor: pointer;
 }
-
+p{
+    margin: 0;
+}
 .butn:hover {
     background-color: #218838;
 }
