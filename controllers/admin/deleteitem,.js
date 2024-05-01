@@ -4,6 +4,7 @@ const {itemmodel} = require("../../models/itemmodel")
 
 async function deleteitem(req, res) 
 { 
+  console.log("hello");
     switch (req.params.type) {
       case "user":
         await usermodel.findByIdAndDelete(req.params.id);
@@ -20,15 +21,12 @@ async function deleteitem(req, res)
       break;
       case "item":
         const itemId = req.params.id;
-        // Find the item by ID and get the seller ID (arr.pid)
         const item = await itemmodel.findOne({ _id: itemId });
         if (!item) {
           return res.status(404).send("Item not found");
         }
     
         const sellerId = item.pid;
-    
-        // Update the seller model to remove the item from the items array
         await sellermodel.findOneAndUpdate(
           { _id: sellerId },
           { $pull: { items: { _id: itemId } } },
@@ -36,7 +34,6 @@ async function deleteitem(req, res)
         );
 
         await itemmodel.findByIdAndDelete(itemId);
-//  res.send(req.params)
         res.redirect("/admin/home/"+ req.params.admin);
         break;
       default:

@@ -20,7 +20,7 @@ async function sellingpage_get(req, res) {
     })
    await itemmodel.findOne({_id:req.params.itemid}).then((result)=>{
     if (!result) {
-      res.send("item sold")
+      res.send('<h1 style="color: green; text-align: center;">Item Sold</h1><br><p style="text-align: center;"><a href="/sellerhome/' + req.params.seller + '" style="color: blue;">Back to User Profile</a></p>');
       return
     }
       if (result.aution_active) {
@@ -31,6 +31,7 @@ async function sellingpage_get(req, res) {
       username:name,
       item:result
      }
+     console.log(data.item);
       res.render("ownerpage",{arr:data} )
      })
    }

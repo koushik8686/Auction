@@ -10,7 +10,6 @@ function createauction_post(req, res) {
     sellermodel.find().then((arr) => {
         for (let index = 0; index < arr.length; index++) {
             if (arr[index]._id == req.params.seller) {
-                console.log("ok");
                 nam = arr[index].name;
                 var classs =""
                 switch (req.body.type) {
