@@ -14,7 +14,6 @@ function set_sellersession(req, content) {
 }
 
 function get_sellersession(req) {
-  console.log(req.session.sellerID);
   return req.session.sellerID
 }
 

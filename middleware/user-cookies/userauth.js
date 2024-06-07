@@ -1,6 +1,4 @@
 
-const session = require("express-session");
-const cookieParser = require("cookie-parser");
 const express = require("express");
 const app = express();
 
@@ -13,20 +11,17 @@ function set_session(req, content) {
   }
 }
 
-
 function get_session(req) {
-  console.log(req.session.userID);
   return req.session.userID
 }
 
 async function delete_Session (req, res) {
-  // Destroy the session
   req.session.destroy((err) => {
     if (err) {
       console.error('Error destroying session:', err);
-      res.sendStatus(500); // Internal Server Error
+      res.sendStatus(500); 
     } else {
-      res.redirect('/'); // Redirect to the login page or any other desired location
+      res.redirect('/'); 
     }
   });
 }

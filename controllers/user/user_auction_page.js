@@ -8,7 +8,7 @@ async function render_auctionpage(req, res) {
     })
     itemmodel.findOne({_id:req.params.itemid}).then( async (result)=>{
       if (!result) {
-        res.redirect("/user/"+req.params.userid)
+        res.send('<h1>Item Sold</h1><br><a href="/user/' + req.params.userid + '">Back to User Profile</a>');
         return
       }
       if (result.aution_over) {

@@ -2,7 +2,7 @@
 const adminmodel = require("../../models/adminmodel")
 async function changepermissions (req, res)  {
     try {
-      const adminId = req.params.admin; // Trim the value to remove leading and trailing spaces
+      const adminId = req.params.admin; 
       const admin = await adminmodel.findOne({ _id: adminId });
       if (!admin) {
         return res.status(404).send("Admin not found");

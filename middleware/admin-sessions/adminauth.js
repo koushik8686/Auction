@@ -13,7 +13,6 @@ function set_session(req, content) {
 
 
 function get_session(req) {
-  console.log(req.session.AdminID);
   return req.session.AdminID
 }
 

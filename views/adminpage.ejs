@@ -33,7 +33,7 @@
                     <div class="username">Name : <%= data.usersdata[i].email %></div>
                     <div class="useritem">No of items : <%= data.usersdata[i].items.length %></div>
                     <% if(data.admin.permissions.users_editing) { %>
-                    <a href="delete/user/<%= data.usersdata[i]._id %>"><button id=<%= data.usersdata[i].email %> class="userdel" >Delete</button></a>
+                    <a href="/delete/user/<%= data.usersdata[i]._id %>/<%= data.admin._id %>"><button id=<%= data.usersdata[i].email %> class="userdel" >Delete</button></a>
                   <%  }%>  
                 </div> 
                <% } %>
@@ -47,7 +47,7 @@
                     <div class="selleremail">Phone : <%= data.sellersdata[i].phone %></div>
                     <div class="selleritem">No of items : <%= data.sellersdata[i].items.length %></div>
                     <% if(data.admin.permissions.seller_editing) { %>
-                        <a href="delete/seller/<%= data.sellersdata[i]._id %>">
+                        <a href="/delete/seller/<%= data.sellersdata[i]._id %>/<%= data.admin._id %>">
                             <button id="<%= data.sellersdata[i].name %>" class="sellerdel">delete</button>
                         </a>  
                     <% } %>

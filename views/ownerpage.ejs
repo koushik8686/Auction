@@ -42,8 +42,9 @@
         </div>
         <div class="form">
             <form method="post" action="/sell/<%= arr.user %>/<%= arr.item._id %>">
-                <button style="margin-left: 700px;" type="submit"> sell
-                </button>
+                <% if (arr.item.auction_history.length !== 0) { %>
+                    <button style="margin-left: 700px;" type="submit">Sell</button> 
+                <% } %>
               </form>
         </div>
     </div>
@@ -51,4 +52,8 @@
 </body>
 </html>
 
-
+<script>
+      setInterval(() => {
+        window.location.reload()
+    }, 1500);
+</script>
