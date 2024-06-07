@@ -3,6 +3,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const adminmodel = require("./models/adminmodel")
 const session = require("express-session");
+require('dotenv').config();
 const cookieParser = require("cookie-parser");
 const app = express();
 app.set('view engine', 'ejs');
@@ -19,13 +20,13 @@ app.use(
     cookie: {  maxAge: null }, 
   })
 );
-mongoose.connect("mongodb+srv://koushik:koushik@cluster0.h2lzgvs.mongodb.net/fsd-project");
+mongoose.connect(process.env.URL);
 //models 
 const usermodel = require("./models/usermodel")
 const {itemmodel} = require("./models/itemmodel")
 const sellermodel = require("./models/sellermodel")
 
-app.listen(3000, function (param) {  })
+app.listen(3000, function (param) { console.log("Running on port 3000"); console.log("http://localhost:3000/"); })
 
 //user routes
 app.get("/", function (req, res) {  res.sendFile(__dirname+"/views/intro.html")})
